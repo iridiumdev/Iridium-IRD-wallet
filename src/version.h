@@ -1,0 +1,7 @@
+#define BUILD_COMMIT_ID ""
+#define PROJECT_VERSION "2.1.2"
+#define PROJECT_VERSION_BUILD_NO ""
+#define PROJECT_VERSION_LONG PROJECT_VERSION " (" "" ")"
+#define VERSION_MAJOR "2"
+#define VERSION_MINOR "1.2"
+#define VERSION_PATCH ""
