@@ -20,6 +20,7 @@
 using namespace WalletGui;
 
 int main(int argc, char* argv[]) {
+  WalletApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
   WalletApplication app(argc, argv);
   try {
     if (!app.init()) {

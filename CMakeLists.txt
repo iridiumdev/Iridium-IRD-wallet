@@ -1,4 +1,12 @@
-cmake_minimum_required(VERSION 2.8.6)
+cmake_minimum_required(VERSION 3.10)
+foreach(p
+    CMP0071 # 3.10: Let AUTOMOC and AUTOUIC process GENERATED files
+    )
+  if(POLICY ${p})
+    cmake_policy(SET ${p} NEW)
+  endif()
+endforeach()
+
 include(CryptoNoteWallet.cmake)
 
 project(${CN_PROJECT_NAME})
@@ -20,10 +28,12 @@ include_directories(${CMAKE_BINARY_DIR}
   iridium/src
 )
 
-find_package(Qt5Gui REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Network REQUIRED)
-find_package(Qt5DBus REQUIRED)
+find_package(Qt5 REQUIRED
+    Gui
+    Widgets
+    Network
+    DBus
+    )
 
 include_directories(${Qt5DBus_INCLUDE_DIRS} iridium/external/rocksdb/include/ include src external "${CMAKE_CURRENT_BINARY_DIR}/version")
 
@@ -190,11 +200,11 @@ elseif (UNIX)
     file(GLOB_RECURSE OBJC_SOURCES src/*.mm)
     set(SOURCES ${SOURCES} ${OBJC_SOURCES})
     set(PLATFORM_DIR OSX)
-    set(MACOSX_BUNDLE_INFO_STRING "Iridium GUI wallet")
-    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VERSION_VERSION}.${VERSION_MINOR}.${VERSION_PATCH}")
+    set(MACOSX_BUNDLE_INFO_STRING "Iridium GUI wallet v${VERSION} ( ${GIT_REVISION} )")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VERSION} ( ${GIT_REVISION} )")
     set(MACOSX_BUNDLE_BUNDLE_NAME IridiumWallet)
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION_VERSION}.${VERSION_MINOR}.${VERSION_PATCH}")
-    set(MACOSX_BUNDLE_BUNDLE_VERSION "$${VERSION_VERSION}.${VERSION_MINOR}.${VERSION_PATCH}")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION}")
+    set(MACOSX_BUNDLE_BUNDLE_VERSION "${VERSION}")
 
     find_package(Qt5PrintSupport REQUIRED)
     include_directories(/usr/include/malloc)
