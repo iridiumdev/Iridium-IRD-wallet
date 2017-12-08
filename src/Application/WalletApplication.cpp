@@ -152,9 +152,9 @@ bool WalletApplication::init() {
   }
 #endif
   if (!m_lockFile->tryLock()) {
-    WalletLogger::warning(tr("[Application] Bytecoin wallet already running"));
+    WalletLogger::warning(tr("[Application] Iridium wallet already running"));
     if (!paymentUrl.isValid()) {
-      QMessageBox::warning(nullptr, QObject::tr("Fail"), "Bytecoin wallet already running");
+      QMessageBox::warning(nullptr, QObject::tr("Fail"), "Iridium wallet already running");
     }
 
     return false;
@@ -262,9 +262,9 @@ bool WalletApplication::initCryptoNoteAdapter() {
       okButton->setText(QObject::tr("Ok"));
       dlg.addButton(okButton, QMessageBox::AcceptRole);
       dlg.setText(QObject::tr("The database is currently used by another application or service.\n"
-      "If you have iridiumd with non-default RPC port, you should terminate it and relaunch IridiumWallet\n"
+      "If you have iridiumd with non-default RPC port, you should terminate it and relaunch Iridium Wallet\n"
       "or\n"
-      "Set the Local deamon required port in BytecoinWallet Menu/Preferences/Connection settings."));
+      "Set the Local deamon required port in Iridium Wallet Menu/Preferences/Connection settings."));
       dlg.exec();
       return false;
     }

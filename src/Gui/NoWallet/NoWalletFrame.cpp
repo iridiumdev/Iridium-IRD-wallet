@@ -16,7 +16,7 @@
 // along with Bytecoin.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFileInfo>
-
+#include <qtimer.h>
 #include "NoWalletFrame.h"
 #include "Settings/Settings.h"
 #include "ICryptoNoteAdapter.h"

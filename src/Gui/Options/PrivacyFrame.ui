@@ -71,7 +71,7 @@
       <item>
        <widget class="QCheckBox" name="m_newsCheck">
         <property name="text">
-         <string>I want to see Bytecoin Blog feeds</string>
+         <string>I want to see Iridium Blog feeds</string>
         </property>
        </widget>
       </item>

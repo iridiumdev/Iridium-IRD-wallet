@@ -47,29 +47,27 @@ const char STATUS_BAR_STYLE_SHEET_TEMPLATE[] =
   "}";
 
 QString formatTimeDiff(quint64 _timeDiff) {
-  QDateTime dateTime = QDateTime::fromTime_t(_timeDiff).toUTC();
+
+  const int cseconds_in_day = 86400;
+  const int cseconds_in_hour = 3600;
+  const int cseconds_in_minute = 60;
+  const int cseconds = 1;
+
+  long long day = _timeDiff > cseconds_in_day ? _timeDiff / cseconds_in_day : 0;
+  long hour = _timeDiff > cseconds_in_hour ? (_timeDiff % cseconds_in_day) / cseconds_in_hour : 0;
+  long minute = _timeDiff > cseconds_in_minute ? ((_timeDiff % cseconds_in_day) % cseconds_in_hour) / cseconds_in_minute : 0;
+  long seconds = (((_timeDiff % cseconds_in_day) % cseconds_in_hour) % cseconds_in_minute) / cseconds;
+
   QString firstPart;
   QString secondPart;
-  quint64 year = dateTime.date().year() - EPOCH_DATE_TIME.date().year();
-  quint64 month = dateTime.date().month() - EPOCH_DATE_TIME.date().month();
-  quint64 day = dateTime.date().day() - EPOCH_DATE_TIME.date().day();
-  if (year > 0) {
-    firstPart = QStringLiteral("%1 %2").arg(year).arg(year == 1 ? QObject::tr("year") : QObject::tr("years"));
-    secondPart = QStringLiteral("%1 %2").arg(month).arg(month == 1 ? QObject::tr("month") : QObject::tr("months"));
-  } else if (month > 0) {
-    firstPart = QStringLiteral("%1 %2").arg(month).arg(month == 1 ? QObject::tr("month") : QObject::tr("months"));
-    secondPart = QStringLiteral("%1 %2").arg(day).arg(day == 1 ? QObject::tr("day") : QObject::tr("days"));
-  } else if (day > 0) {
-    quint64 hour = dateTime.time().hour();
+
+   if (day > 0) {
     firstPart = QStringLiteral("%1 %2").arg(day).arg(day == 1 ? QObject::tr("day") : QObject::tr("days"));
     secondPart = QStringLiteral("%1 %2").arg(hour).arg(hour == 1 ? QObject::tr("hour") : QObject::tr("hours"));
-  } else if (dateTime.time().hour() > 0) {
-    quint64 hour = dateTime.time().hour();
-    quint64 minute = dateTime.time().minute();
+  } else if (hour > 0) {
     firstPart = QStringLiteral("%1 %2").arg(hour).arg(hour == 1 ? QObject::tr("hour") : QObject::tr("hours"));
     secondPart = QStringLiteral("%1 %2").arg(minute).arg(minute == 1 ? QObject::tr("minute") : QObject::tr("minutes"));
-  } else if (dateTime.time().minute() > 0) {
-    quint64 minute = dateTime.time().minute();
+  } else if (minute > 0) {
     firstPart = QStringLiteral("%1 %2").arg(minute).arg(minute == 1 ? QObject::tr("minute") : QObject::tr("minutes"));
   } else {
     firstPart = QStringLiteral("Less than 1 minute");

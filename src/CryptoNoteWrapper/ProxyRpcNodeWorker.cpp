@@ -87,6 +87,8 @@ void ProxyRpcNodeWorker::addObserver(INodeAdapterObserver* _observer) {
   m_observerConnections[_observer] << connect(this, SIGNAL(localBlockchainUpdatedSignal(CryptoNote::BlockHeaderInfo)), observer, SLOT(localBlockchainUpdated(CryptoNote::BlockHeaderInfo)), Qt::QueuedConnection);
   m_observerConnections[_observer] << connect(this, SIGNAL(lastKnownBlockHeightUpdatedSignal(quint32)), observer, SLOT(lastKnownBlockHeightUpdated(quint32)), Qt::QueuedConnection);
   m_observerConnections[_observer] << connect(this, SIGNAL(connectionStatusUpdatedSignal(bool)), observer, SLOT(connectionStatusUpdated(bool)), Qt::QueuedConnection);
+  WalletLogger::info(tr("[Application] observer"));
+
 }
 
 void ProxyRpcNodeWorker::removeObserver(INodeAdapterObserver* _observer) {

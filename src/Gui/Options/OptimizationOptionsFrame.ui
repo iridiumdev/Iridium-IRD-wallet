@@ -470,7 +470,7 @@
    <item>
     <widget class="WalletGui::WalletExtraNormalGrayTextLabel" name="m_helpLabel">
      <property name="text">
-      <string>Wallet optimization is a background task performed in order to aggregate transactions outputs that are below optimization target into bigger ones. It makes it cheaper to send larger amounts of bytecoins within one transaction.
+      <string>Wallet optimization is a background task performed in order to aggregate transactions outputs that are below optimization target into bigger ones. It makes it cheaper to send larger amounts of iridium within one transaction.
 Wallet optimization is free for all users but takes some time.</string>
      </property>
      <property name="wordWrap">

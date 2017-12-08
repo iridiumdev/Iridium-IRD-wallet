@@ -112,6 +112,10 @@ void Settings::init() {
     cfgFile.close();
   }
 
+  if (isOptimizationEnabled()) {
+	  setOptimizationEnabled(false);
+  }
+
   restoreDefaultPoolList();
 }
 
@@ -489,7 +493,7 @@ bool Settings::isStartOnLoginEnabled() const {
 #elif defined(Q_OS_WIN)
   QSettings autorunSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
   res = autorunSettings.contains("BytecoinWallet") &&
-    !QDir::fromNativeSeparators(autorunSettings.value("BytecoinWallet").toString().split(' ')[0]).compare(QCoreApplication::applicationFilePath());
+    !QDir::fromNativeSeparators(autorunSettings.value("IridiumWallet").toString().split(' ')[0]).compare(QCoreApplication::applicationFilePath());
 #endif
   return res;
 }
@@ -683,7 +687,7 @@ void Settings::setStartOnLoginEnabled(bool _enable) {
     if (_enable) {
       autorunFile.write("[Desktop Entry]\n");
       autorunFile.write("Type=Application\n");
-      autorunFile.write("Name=Bytecoin Wallet\n");
+      autorunFile.write("Name=Iridium Wallet\n");
       autorunFile.write(QString("Exec=%1 --minimized\n").arg(QCoreApplication::applicationFilePath()).toLocal8Bit());
       autorunFile.write("Terminal=false\n");
       autorunFile.write("Hidden=false\n");
@@ -695,9 +699,9 @@ void Settings::setStartOnLoginEnabled(bool _enable) {
     QSettings autorunSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
     if (_enable) {
       QString appPath = QString("%1 --minimized").arg(QDir::toNativeSeparators(QCoreApplication::applicationFilePath()));
-      autorunSettings.setValue("BytecoinWallet", appPath);
+      autorunSettings.setValue("IridiumWallet", appPath);
     } else {
-      autorunSettings.remove("BytecoinWallet");
+      autorunSettings.remove("IridiumWallet");
     }
 #endif
   }

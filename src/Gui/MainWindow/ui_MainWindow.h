@@ -63,6 +63,7 @@ public:
     QAction *m_resetAction;
     QAction *m_saveKeysAction;
     QAction *m_exportKeyAction;
+    QAction *m_removePendingTxAction;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
     QFrame *m_headerFrame;
@@ -194,6 +195,9 @@ public:
         m_saveKeysAction->setObjectName(QStringLiteral("m_saveKeysAction"));
         m_exportKeyAction = new QAction(MainWindow);
         m_exportKeyAction->setObjectName(QStringLiteral("m_exportKeyAction"));
+        m_removePendingTxAction = new QAction(MainWindow);
+        m_removePendingTxAction->setObjectName(QStringLiteral("m_removePendingTxAction"));
+        m_removePendingTxAction->setCheckable(false);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         verticalLayout_2 = new QVBoxLayout(centralwidget);
@@ -571,6 +575,7 @@ public:
         menuFile->addAction(m_exitAction);
         menuSettings->addAction(m_encryptWalletAction);
         menuSettings->addAction(m_changePasswordAction);
+        menuSettings->addAction(m_removePendingTxAction);
         menuSettings->addSeparator();
         menuSettings->addAction(m_autostartAction);
         menuSettings->addAction(m_minimizeToTrayAction);
@@ -588,6 +593,7 @@ public:
         QObject::connect(m_openWalletAction, SIGNAL(triggered()), MainWindow, SLOT(openWallet()));
         QObject::connect(m_encryptWalletAction, SIGNAL(triggered()), MainWindow, SLOT(encryptWallet()));
         QObject::connect(m_changePasswordAction, SIGNAL(triggered()), MainWindow, SLOT(encryptWallet()));
+		QObject::connect(m_removePendingTxAction, SIGNAL(triggered()), MainWindow, SLOT(removePendingTx()));
         QObject::connect(m_aboutQtAction, SIGNAL(triggered()), MainWindow, SLOT(aboutQt()));
         QObject::connect(m_backupWalletAction, SIGNAL(triggered()), MainWindow, SLOT(backupWallet()));
         QObject::connect(m_aboutIridiumAction, SIGNAL(triggered()), MainWindow, SLOT(about()));
@@ -616,69 +622,70 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        m_exitAction->setText(QApplication::translate("MainWindow", "Exit", 0));
-        m_exitAction->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", 0));
-        m_createWalletAction->setText(QApplication::translate("MainWindow", "Create wallet", 0));
-        m_openWalletAction->setText(QApplication::translate("MainWindow", "Open wallet", 0));
-        m_encryptWalletAction->setText(QApplication::translate("MainWindow", "Encrypt wallet", 0));
-        m_changePasswordAction->setText(QApplication::translate("MainWindow", "Change password", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        m_exitAction->setText(QApplication::translate("MainWindow", "Exit", Q_NULLPTR));
+        m_exitAction->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", Q_NULLPTR));
+        m_createWalletAction->setText(QApplication::translate("MainWindow", "Create wallet", Q_NULLPTR));
+        m_openWalletAction->setText(QApplication::translate("MainWindow", "Open wallet", Q_NULLPTR));
+        m_encryptWalletAction->setText(QApplication::translate("MainWindow", "Encrypt wallet", Q_NULLPTR));
+        m_changePasswordAction->setText(QApplication::translate("MainWindow", "Change password", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        m_changePasswordAction->setToolTip(QApplication::translate("MainWindow", "Change password", 0));
+        m_changePasswordAction->setToolTip(QApplication::translate("MainWindow", "Change password", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        m_aboutIridiumAction->setText(QApplication::translate("MainWindow", "About Iridium", 0));
-        m_aboutQtAction->setText(QApplication::translate("MainWindow", "About Qt", 0));
-        m_backupWalletAction->setText(QApplication::translate("MainWindow", "Backup wallet", 0));
-        m_autostartAction->setText(QApplication::translate("MainWindow", "Start on system login", 0));
-        m_minimizeToTrayAction->setText(QApplication::translate("MainWindow", "Minimize to tray", 0));
-        m_closeToTrayAction->setText(QApplication::translate("MainWindow", "Close to tray", 0));
-        m_preferencesAction->setText(QApplication::translate("MainWindow", "Preferences", 0));
-        m_recentWalletsAction->setText(QApplication::translate("MainWindow", "Recent wallets", 0));
-        m_exportTrackingKeyAction->setText(QApplication::translate("MainWindow", "Export tracking key", 0));
+        m_aboutIridiumAction->setText(QApplication::translate("MainWindow", "About Iridium", Q_NULLPTR));
+        m_aboutQtAction->setText(QApplication::translate("MainWindow", "About Qt", Q_NULLPTR));
+        m_backupWalletAction->setText(QApplication::translate("MainWindow", "Backup wallet", Q_NULLPTR));
+        m_autostartAction->setText(QApplication::translate("MainWindow", "Start on system login", Q_NULLPTR));
+        m_minimizeToTrayAction->setText(QApplication::translate("MainWindow", "Minimize to tray", Q_NULLPTR));
+        m_closeToTrayAction->setText(QApplication::translate("MainWindow", "Close to tray", Q_NULLPTR));
+        m_preferencesAction->setText(QApplication::translate("MainWindow", "Preferences", Q_NULLPTR));
+        m_recentWalletsAction->setText(QApplication::translate("MainWindow", "Recent wallets", Q_NULLPTR));
+        m_exportTrackingKeyAction->setText(QApplication::translate("MainWindow", "Export tracking key", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        m_exportTrackingKeyAction->setToolTip(QApplication::translate("MainWindow", "Export tracking key", 0));
+        m_exportTrackingKeyAction->setToolTip(QApplication::translate("MainWindow", "Export tracking key", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        m_importKeyAction->setText(QApplication::translate("MainWindow", "Import key", 0));
+        m_importKeyAction->setText(QApplication::translate("MainWindow", "Import key", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        m_importKeyAction->setToolTip(QApplication::translate("MainWindow", "Import key", 0));
+        m_importKeyAction->setToolTip(QApplication::translate("MainWindow", "Import key", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        m_communityForumAction->setText(QApplication::translate("MainWindow", "Community forum", 0));
-        m_reportIssueAction->setText(QApplication::translate("MainWindow", "Report an issue", 0));
-        m_resetAction->setText(QApplication::translate("MainWindow", "Reset wallet", 0));
-        m_saveKeysAction->setText(QApplication::translate("MainWindow", "Save wallet keys", 0));
-        m_exportKeyAction->setText(QApplication::translate("MainWindow", "Export key", 0));
+        m_communityForumAction->setText(QApplication::translate("MainWindow", "Join us on Discord", Q_NULLPTR));
+        m_reportIssueAction->setText(QApplication::translate("MainWindow", "Report an issue", Q_NULLPTR));
+        m_resetAction->setText(QApplication::translate("MainWindow", "Reset wallet", Q_NULLPTR));
+        m_saveKeysAction->setText(QApplication::translate("MainWindow", "Save wallet keys", Q_NULLPTR));
+        m_exportKeyAction->setText(QApplication::translate("MainWindow", "Export key", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        m_exportKeyAction->setToolTip(QApplication::translate("MainWindow", "Export key", 0));
+        m_exportKeyAction->setToolTip(QApplication::translate("MainWindow", "Export key", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
+        m_removePendingTxAction->setText(QApplication::translate("MainWindow", "Remove pending TXs", Q_NULLPTR));
         m_logoLabel->setText(QString());
-        m_noWalletLabel->setText(QApplication::translate("MainWindow", "No active wallet", 0));
-        m_walletLabel->setText(QApplication::translate("MainWindow", "Your wallet:", 0));
+        m_noWalletLabel->setText(QApplication::translate("MainWindow", "No active wallet", Q_NULLPTR));
+        m_walletLabel->setText(QApplication::translate("MainWindow", "Your wallet:", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        m_addressLabel->setToolTip(QApplication::translate("MainWindow", "Click to copy", 0));
+        m_addressLabel->setToolTip(QApplication::translate("MainWindow", "Click to copy", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        m_addressLabel->setText(QApplication::translate("MainWindow", "ADDRESS", 0));
+        m_addressLabel->setText(QApplication::translate("MainWindow", "ADDRESS", Q_NULLPTR));
         m_notEncryptedIconLabel->setText(QString());
-        m_notEncryptedTextLabel->setText(QApplication::translate("MainWindow", "Wallet not encrypted!", 0));
-        m_encryptButton->setText(QApplication::translate("MainWindow", "Set password", 0));
-        m_copyAddressButton->setText(QApplication::translate("MainWindow", "Copy address", 0));
-        m_copyAddressLabel->setText(QApplication::translate("MainWindow", "Address copied to clipboard", 0));
-        m_balanceTextLabel->setText(QApplication::translate("MainWindow", "Total balance", 0));
+        m_notEncryptedTextLabel->setText(QApplication::translate("MainWindow", "Wallet not encrypted!", Q_NULLPTR));
+        m_encryptButton->setText(QApplication::translate("MainWindow", "Set password", Q_NULLPTR));
+        m_copyAddressButton->setText(QApplication::translate("MainWindow", "Copy address", Q_NULLPTR));
+        m_copyAddressLabel->setText(QApplication::translate("MainWindow", "Address copied to clipboard", Q_NULLPTR));
+        m_balanceTextLabel->setText(QApplication::translate("MainWindow", "Total balance", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        m_balanceLabel->setToolTip(QApplication::translate("MainWindow", "Click to copy", 0));
+        m_balanceLabel->setToolTip(QApplication::translate("MainWindow", "Click to copy", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        m_balanceLabel->setText(QApplication::translate("MainWindow", "0.00", 0));
-        m_balanceCopyLabel->setText(QApplication::translate("MainWindow", "Copied!", 0));
+        m_balanceLabel->setText(QApplication::translate("MainWindow", "0.00", Q_NULLPTR));
+        m_balanceCopyLabel->setText(QApplication::translate("MainWindow", "Copied!", Q_NULLPTR));
         m_balanceIconLabel->setText(QString());
-        m_overviewButton->setText(QApplication::translate("MainWindow", "OVERVIEW", 0));
-        m_sendButton->setText(QApplication::translate("MainWindow", "SEND IRIDIUM", 0));
-        m_transactionsButton->setText(QApplication::translate("MainWindow", "TRANSACTIONS", 0));
-        m_blockExplorerButton->setText(QApplication::translate("MainWindow", "BLOCK EXPLORER", 0));
-        m_addressBookButton->setText(QApplication::translate("MainWindow", "CONTACTS", 0));
-        m_miningButton->setText(QApplication::translate("MainWindow", "MINING", 0));
-        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
-        menuSettings->setTitle(QApplication::translate("MainWindow", "Settings", 0));
-        menuThemes->setTitle(QApplication::translate("MainWindow", "Themes", 0));
-        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
+        m_overviewButton->setText(QApplication::translate("MainWindow", "OVERVIEW", Q_NULLPTR));
+        m_sendButton->setText(QApplication::translate("MainWindow", "SEND IRIDIUM", Q_NULLPTR));
+        m_transactionsButton->setText(QApplication::translate("MainWindow", "TRANSACTIONS", Q_NULLPTR));
+        m_blockExplorerButton->setText(QApplication::translate("MainWindow", "BLOCK EXPLORER", Q_NULLPTR));
+        m_addressBookButton->setText(QApplication::translate("MainWindow", "CONTACTS", Q_NULLPTR));
+        m_miningButton->setText(QApplication::translate("MainWindow", "MINING", Q_NULLPTR));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
+        menuSettings->setTitle(QApplication::translate("MainWindow", "Settings", Q_NULLPTR));
+        menuThemes->setTitle(QApplication::translate("MainWindow", "Themes", Q_NULLPTR));
+        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
     } // retranslateUi
 
 };

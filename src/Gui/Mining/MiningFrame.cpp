@@ -24,8 +24,6 @@
 
 #include "MiningFrame.h"
 #include "Settings/Settings.h"
-// dirty fix
-//#include "ApplicationEventHandler.h"
 #include "ApplicationEventHandler.h"
 #include "Gui/Common/QuestionDialog.h"
 #include "Gui/Common/RightAlignmentColumnDelegate.h"

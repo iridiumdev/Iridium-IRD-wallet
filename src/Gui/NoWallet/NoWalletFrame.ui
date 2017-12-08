@@ -54,7 +54,7 @@
    <item alignment="Qt::AlignHCenter">
     <widget class="WalletGui::WalletHeaderLabel" name="m_welcomeLabel">
      <property name="text">
-      <string>Welcome to Bytecoin Wallet!</string>
+      <string>Welcome to Iridium Wallet!</string>
      </property>
     </widget>
    </item>

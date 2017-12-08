@@ -155,7 +155,7 @@ public:
         m_feeSpin->setSuffix(QStringLiteral("IRD"));
         m_feeSpin->setDecimals(8);
         m_feeSpin->setMinimum(0.0005);
-        m_feeSpin->setMaximum(10);
+        m_feeSpin->setMaximum(0.5);
         m_feeSpin->setSingleStep(0.0001);
         m_feeSpin->setValue(0.0005);
 

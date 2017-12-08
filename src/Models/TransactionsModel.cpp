@@ -521,6 +521,10 @@ void TransactionsModel::showAllCachedTransactions() {
 
   quintptr firstIndex = (m_lastVisibleTransactionIndex == CryptoNote::WALLET_INVALID_TRANSACTION_ID ? 0 : m_lastVisibleTransactionIndex + 1);
   quintptr lastIndex = m_transactions.size() - 1;
+
+  if (firstIndex > lastIndex)
+	  return;
+
   beginInsertRows(QModelIndex(), firstIndex, lastIndex);
   m_showTransfers.resize(lastIndex + 1);
   m_showTransfers.fill(false, firstIndex, lastIndex);

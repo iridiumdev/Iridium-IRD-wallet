@@ -1,3 +1,3 @@
-[submodule "iridium"]
-	path = iridium
+[submodule "cryptonote"]
+	path = cryptonote
 	url = https://github.com/steevebrush/iridium.git

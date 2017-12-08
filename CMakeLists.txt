@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
+
 foreach(p
     CMP0071 # 3.10: Let AUTOMOC and AUTOUIC process GENERATED files
     )
@@ -22,10 +23,10 @@ set(CRYPTONOTE_LIB cryptoNote)
 include_directories(${CMAKE_BINARY_DIR}
   src
   include
-  iridium/external
-  iridium/external/rocksdb/include/
-  iridium/include
-  iridium/src
+  cryptonote/external
+  cryptonote/external/rocksdb/include/
+  cryptonote/include
+  cryptonote/src
 )
 
 find_package(Qt5 REQUIRED
@@ -35,7 +36,7 @@ find_package(Qt5 REQUIRED
     DBus
     )
 
-include_directories(${Qt5DBus_INCLUDE_DIRS} iridium/external/rocksdb/include/ include src external "${CMAKE_CURRENT_BINARY_DIR}/version")
+include_directories(${Qt5DBus_INCLUDE_DIRS} cryptonote/external/rocksdb/include/ include src external "${CMAKE_CURRENT_BINARY_DIR}/version")
 
 set(Boost_USE_STATIC_LIBS ON)
 if(WIN32)
@@ -53,8 +54,8 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 set(VERSION "2.1.2")
-configure_file("iridium/src/version.h.in" "version.h")
-configure_file("iridium/src/version.h.in" ${CMAKE_SOURCE_DIR}/src/version.h)
+configure_file("cryptonote/src/version.h.in" "version.h")
+configure_file("cryptonote/src/version.h.in" ${CMAKE_SOURCE_DIR}/src/version.h)
 configure_file("src/CryptoNoteWalletConfig.h.in" "CryptoNoteWalletConfig.h")
 
 add_definitions(-DGIT_REVISION="${GIT_REVISION}")
@@ -62,90 +63,90 @@ add_definitions(-DGIT_REVISION="${GIT_REVISION}")
 set(CMAKE_AUTOMOC ON)
 
 file(GLOB_RECURSE CRYPTONOTE_SOURCES
-  iridium/external/miniupnpc/connecthostport.c
-  iridium/external/miniupnpc/igd_desc_parse.c
-  iridium/external/miniupnpc/minisoap.c
-  iridium/external/miniupnpc/miniupnpc.c
-  iridium/external/miniupnpc/miniwget.c
-  iridium/external/miniupnpc/minixml.c
-  iridium/external/miniupnpc/portlistingparse.c
-  iridium/external/miniupnpc/receivedata.c
-  iridium/external/miniupnpc/upnpcommands.c
-  iridium/external/miniupnpc/upnpreplyparse.c
-  iridium/src/BlockchainExplorer/BlockchainExplorer.cpp
-  iridium/src/BlockchainExplorer/BlockchainExplorerErrors.cpp
-  iridium/src/Common/Base58.cpp
-  iridium/src/Common/CommandLine.cpp
-  iridium/src/Common/Util.cpp
-  iridium/src/Common/StringTools.cpp
-  iridium/src/Common/JsonValue.cpp
-  iridium/src/Common/ConsoleTools.cpp
-  iridium/src/Common/MemoryInputStream.cpp
-  iridium/src/Common/PathTools.cpp
-  iridium/src/Common/StdInputStream.cpp
-  iridium/src/Common/StdOutputStream.cpp
-  iridium/src/Common/StreamTools.cpp
-  iridium/src/Common/StringOutputStream.cpp
-  iridium/src/Common/StringView.cpp
-  iridium/src/Common/VectorOutputStream.cpp
-  iridium/src/Common/ScopeExit.cpp
-  iridium/src/ConnectivityTool/ConnectivityTool.cpp
-  iridium/src/crypto/blake256.c
-  iridium/src/crypto/chacha8.c
-  iridium/src/crypto/crypto-ops-data.c
-  iridium/src/crypto/crypto-ops.c
-  iridium/src/crypto/crypto.cpp
-  iridium/src/crypto/groestl.c
-  iridium/src/crypto/hash-extra-blake.c
-  iridium/src/crypto/hash-extra-groestl.c
-  iridium/src/crypto/hash-extra-jh.c
-  iridium/src/crypto/hash-extra-skein.c
-  iridium/src/crypto/hash.c
-  iridium/src/crypto/jh.c
-  iridium/src/crypto/keccak.c
-  iridium/src/crypto/oaes_lib.c
-  iridium/src/crypto/random.c
-  iridium/src/crypto/skein.c
-  iridium/src/crypto/slow-hash.c
-  iridium/src/crypto/slow-hash.cpp
-  iridium/src/crypto/tree-hash.c
-  iridium/src/CryptoNoteCore/*.cpp
-  iridium/src/CryptoNoteProtocol/*.cpp
-  iridium/src/Daemon/*.cpp
-  iridium/src/HTTP/*.cpp
-  iridium/src/InProcessNode/InProcessNode.cpp
-  iridium/src/InProcessNode/InProcessNodeErrors.cpp
-  iridium/src/Logging/*.cpp
-  iridium/src/NodeRpcProxy/NodeErrors.cpp
-  iridium/src/NodeRpcProxy/NodeRpcProxy.cpp
-  iridium/src/P2p/*.cpp
-  iridium/src/Rpc/*.cpp
-  iridium/src/Serialization/*.cpp
-  iridium/src/Transfers/BlockchainSynchronizer.cpp
-  iridium/src/Transfers/SynchronizationState.cpp
-  iridium/src/Transfers/TransfersConsumer.cpp
-  iridium/src/Transfers/TransfersContainer.cpp
-  iridium/src/Transfers/TransfersSubscription.cpp
-  iridium/src/Transfers/TransfersSynchronizer.cpp
-  iridium/src/Wallet/*.cpp
-  iridium/src/WalletLegacy/KeysStorage.cpp
-  iridium/src/WalletLegacy/WalletLegacy.cpp
-  iridium/src/WalletLegacy/WalletHelper.cpp
-  iridium/src/WalletLegacy/WalletLegacySerializer.cpp
-  iridium/src/WalletLegacy/WalletLegacySerialization.cpp
-  iridium/src/WalletLegacy/WalletTransactionSender.cpp
-  iridium/src/WalletLegacy/WalletUnconfirmedTransactions.cpp
-  iridium/src/WalletLegacy/WalletUserTransactionsCache.cpp
-  iridium/src/System/ContextGroup.cpp
-  iridium/src/System/Event.cpp
-  iridium/src/System/EventLock.cpp
-  iridium/src/System/InterruptedException.cpp
-  iridium/src/System/Ipv4Address.cpp
-  iridium/src/System/TcpStream.cpp
-  iridium/src/JsonRpcServer/*.cpp
-  iridium/src/PaymentGate/*.cpp
-  iridium/src/PaymentGateService/*.cpp
-  iridium/src/Miner/*.cpp
+  cryptonote/external/miniupnpc/connecthostport.c
+  cryptonote/external/miniupnpc/igd_desc_parse.c
+  cryptonote/external/miniupnpc/minisoap.c
+  cryptonote/external/miniupnpc/miniupnpc.c
+  cryptonote/external/miniupnpc/miniwget.c
+  cryptonote/external/miniupnpc/minixml.c
+  cryptonote/external/miniupnpc/portlistingparse.c
+  cryptonote/external/miniupnpc/receivedata.c
+  cryptonote/external/miniupnpc/upnpcommands.c
+  cryptonote/external/miniupnpc/upnpreplyparse.c
+  cryptonote/src/BlockchainExplorer/BlockchainExplorer.cpp
+  cryptonote/src/BlockchainExplorer/BlockchainExplorerErrors.cpp
+  cryptonote/src/Common/Base58.cpp
+  cryptonote/src/Common/CommandLine.cpp
+  cryptonote/src/Common/Util.cpp
+  cryptonote/src/Common/StringTools.cpp
+  cryptonote/src/Common/JsonValue.cpp
+  cryptonote/src/Common/ConsoleTools.cpp
+  cryptonote/src/Common/MemoryInputStream.cpp
+  cryptonote/src/Common/PathTools.cpp
+  cryptonote/src/Common/StdInputStream.cpp
+  cryptonote/src/Common/StdOutputStream.cpp
+  cryptonote/src/Common/StreamTools.cpp
+  cryptonote/src/Common/StringOutputStream.cpp
+  cryptonote/src/Common/StringView.cpp
+  cryptonote/src/Common/VectorOutputStream.cpp
+  cryptonote/src/Common/ScopeExit.cpp
+  cryptonote/src/ConnectivityTool/ConnectivityTool.cpp
+  cryptonote/src/crypto/blake256.c
+  cryptonote/src/crypto/chacha8.c
+  cryptonote/src/crypto/crypto-ops-data.c
+  cryptonote/src/crypto/crypto-ops.c
+  cryptonote/src/crypto/crypto.cpp
+  cryptonote/src/crypto/groestl.c
+  cryptonote/src/crypto/hash-extra-blake.c
+  cryptonote/src/crypto/hash-extra-groestl.c
+  cryptonote/src/crypto/hash-extra-jh.c
+  cryptonote/src/crypto/hash-extra-skein.c
+  cryptonote/src/crypto/hash.c
+  cryptonote/src/crypto/jh.c
+  cryptonote/src/crypto/keccak.c
+  cryptonote/src/crypto/oaes_lib.c
+  cryptonote/src/crypto/random.c
+  cryptonote/src/crypto/skein.c
+  cryptonote/src/crypto/slow-hash.c
+  cryptonote/src/crypto/slow-hash.cpp
+  cryptonote/src/crypto/tree-hash.c
+  cryptonote/src/CryptoNoteCore/*.cpp
+  cryptonote/src/CryptoNoteProtocol/*.cpp
+  cryptonote/src/Daemon/*.cpp
+  cryptonote/src/HTTP/*.cpp
+  cryptonote/src/InProcessNode/InProcessNode.cpp
+  cryptonote/src/InProcessNode/InProcessNodeErrors.cpp
+  cryptonote/src/Logging/*.cpp
+  cryptonote/src/NodeRpcProxy/NodeErrors.cpp
+  cryptonote/src/NodeRpcProxy/NodeRpcProxy.cpp
+  cryptonote/src/P2p/*.cpp
+  cryptonote/src/Rpc/*.cpp
+  cryptonote/src/Serialization/*.cpp
+  cryptonote/src/Transfers/BlockchainSynchronizer.cpp
+  cryptonote/src/Transfers/SynchronizationState.cpp
+  cryptonote/src/Transfers/TransfersConsumer.cpp
+  cryptonote/src/Transfers/TransfersContainer.cpp
+  cryptonote/src/Transfers/TransfersSubscription.cpp
+  cryptonote/src/Transfers/TransfersSynchronizer.cpp
+  cryptonote/src/Wallet/*.cpp
+  cryptonote/src/WalletLegacy/KeysStorage.cpp
+  cryptonote/src/WalletLegacy/WalletLegacy.cpp
+  cryptonote/src/WalletLegacy/WalletHelper.cpp
+  cryptonote/src/WalletLegacy/WalletLegacySerializer.cpp
+  cryptonote/src/WalletLegacy/WalletLegacySerialization.cpp
+  cryptonote/src/WalletLegacy/WalletTransactionSender.cpp
+  cryptonote/src/WalletLegacy/WalletUnconfirmedTransactions.cpp
+  cryptonote/src/WalletLegacy/WalletUserTransactionsCache.cpp
+  cryptonote/src/System/ContextGroup.cpp
+  cryptonote/src/System/Event.cpp
+  cryptonote/src/System/EventLock.cpp
+  cryptonote/src/System/InterruptedException.cpp
+  cryptonote/src/System/Ipv4Address.cpp
+  cryptonote/src/System/TcpStream.cpp
+  cryptonote/src/JsonRpcServer/*.cpp
+  cryptonote/src/PaymentGate/*.cpp
+  cryptonote/src/PaymentGateService/*.cpp
+  cryptonote/src/Miner/*.cpp
 )
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
@@ -158,8 +159,7 @@ if(MSVC)
 elseif(APPLE)
   include_directories(Platform/OSX)
   include_directories(Platform/Posix)
-  file(GLOB_RECURSE SOURCES_MAC ${CMAKE_SOURCE_DIR}/Platform/OSX/*.mm)
-  set(SOURCES ${SOURCES} ${SOURCES_MAC})
+  set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/OSX/ApplicationEventHandler.h ${CMAKE_SOURCE_DIR}/Platform/OSX/ApplicationEventHandler.mm ${CMAKE_SOURCE_DIR}/Platform/OSX/INotificationMonitorObserver.h ${CMAKE_SOURCE_DIR}/Platform/OSX/NotificationMonitor.h ${CMAKE_SOURCE_DIR}/Platform/OSX/NotificationMonitor.mm ${CMAKE_SOURCE_DIR}/Platform/OSX/WalletApplication.mm )
   set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
 else()
   include_directories(Platform/Linux)
@@ -167,6 +167,7 @@ else()
   set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Linux/ApplicationEventHandler.cpp)
   set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
 endif()
+
 
 set(QRC src/resources.qrc)
 
@@ -177,23 +178,18 @@ if (WIN32)
   if (NOT MSVC)
     message(FATAL_ERROR "Only MSVC is supported on this platform")
   endif ()
+
   add_definitions(/D_CRT_SECURE_NO_WARNINGS /D_WIN32_WINNT=0x0600 /DSTATICLIB)
-  include_directories(iridium/src/Platform/msc)
+  include_directories(cryptonote/src/Platform/msc)
+
   set(PLATFORM_DIR Windows)
   set(BUILD_PLATFORM WIN32)
   set(BUILD_RESOURCES src/iridiumwallet.rc)
   set(QTMAIN Qt5::WinMain)
 
 elseif (UNIX)
-  add_custom_target(
-     rocksdb
-     COMMAND make static_lib -Wno-undef -Wno-unused-result -Wno-unused-value
-     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/iridium/external/rocksdb
-  )
-  add_library(rocksdblib STATIC IMPORTED GLOBAL)
-  set_target_properties(rocksdblib PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/iridium/external/rocksdb/librocksdb.a)
-  add_dependencies(rocksdblib rocksdb)
-  set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} iridium/external/miniupnpc/minissdpc.c)
+
+  set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} cryptonote/external/miniupnpc/minissdpc.c)
 
   if (APPLE)
     enable_language(ASM)
@@ -231,26 +227,28 @@ elseif (UNIX)
   endif (APPLE)
 endif ()
 
-include_directories(iridium/src/Platform/${PLATFORM_DIR})
-
-file(GLOB PLATFORM_SOURCES iridium/src/Platform/${PLATFORM_DIR}/System/*)
+include_directories(cryptonote/src/Platform/${PLATFORM_DIR})
+file(GLOB PLATFORM_SOURCES cryptonote/src/Platform/${PLATFORM_DIR}/System/*)
 set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} ${PLATFORM_SOURCES} ${CRYPTONOTE_PLATFORM})
 
 add_library(${CRYPTONOTE_LIB} STATIC ${CRYPTONOTE_SOURCES})
 set_target_properties(${CRYPTONOTE_LIB} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
-target_link_libraries(${CRYPTONOTE_LIB} ${Boost_LIBRARIES} ${Qt5DBus_LIBRARIES} rocksdblib)
+target_link_libraries(${CRYPTONOTE_LIB} rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIBRARIES})
 
 add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${SOURCES} ${HEADERS} ${UIS} ${RCC})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES} rocksdblib)
+target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES})
 
 if (APPLE)
   qt5_use_modules(${PROJECT_NAME} PrintSupport)
 elseif (UNIX)
   target_link_libraries(${PROJECT_NAME} -lpthread)
 elseif (WIN32)
-  target_link_libraries(${PROJECT_NAME} Imm32 Iphlpapi Winmm)
+  target_link_libraries(${PROJECT_NAME} rpcrt4.lib wtsapi32.lib  Imm32 Iphlpapi Winmm)
 endif (APPLE)
 
 qt5_use_modules(${PROJECT_NAME} Widgets Gui Network)
+
+add_subdirectory(cryptonote/external)
+#add_subdirectory(cryptonote/src)

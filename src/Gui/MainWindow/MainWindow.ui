@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/images/bytecoin</normaloff>:/images/bytecoin</iconset>
+    <normaloff>:/images/intensecoin</normaloff>:/images/intensecoin</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -620,7 +620,7 @@
             <enum>Qt::NoFocus</enum>
            </property>
            <property name="text">
-            <string>SEND BYTECOINS</string>
+            <string>SEND IRIDIUM</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -844,6 +844,7 @@
     </widget>
     <addaction name="m_encryptWalletAction"/>
     <addaction name="m_changePasswordAction"/>
+    <addaction name="m_removePendingTxAction"/>
     <addaction name="separator"/>
     <addaction name="m_autostartAction"/>
     <addaction name="m_minimizeToTrayAction"/>
@@ -920,7 +921,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>About Bytecoin</string>
+    <string>About Iridium</string>
    </property>
   </action>
   <action name="m_aboutQtAction">
@@ -991,7 +992,7 @@
   </action>
   <action name="m_communityForumAction">
    <property name="text">
-    <string>Community forum</string>
+    <string>Join us on Discord</string>
    </property>
   </action>
   <action name="m_reportIssueAction">
@@ -1017,8 +1018,21 @@
     <string>Export key</string>
    </property>
   </action>
+  <action name="m_removePendingTxAction">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Remove pending TXs</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>WalletGui::WalletTinyLinkLikeButton</class>
+   <extends>QPushButton</extends>
+   <header>Gui/Common/WalletLinkLikeButton.h</header>
+  </customwidget>
   <customwidget>
    <class>WalletGui::WalletSmallGrayTextLabel</class>
    <extends>QLabel</extends>
@@ -1028,11 +1042,6 @@
    <class>WalletGui::CopyMagicLabel</class>
    <extends>QLabel</extends>
    <header>Gui/Common/CopyMagicLabel.h</header>
-  </customwidget>
-  <customwidget>
-   <class>WalletGui::WalletTinyLinkLikeButton</class>
-   <extends>QPushButton</extends>
-   <header>Gui/Common/WalletLinkLikeButton.h</header>
   </customwidget>
   <customwidget>
    <class>WalletGui::OverviewFrame</class>

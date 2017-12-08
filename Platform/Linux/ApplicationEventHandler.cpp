@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Bytecoin.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <QtDBus/QtDBus>
 #include <QDBusConnection>
 #include <QDBusError>
 #include <QLocalSocket>
@@ -57,6 +58,7 @@ void ApplicationEventHandler::init() {
   if (!listen(PAYMENT_SERVER_NAME)) {
     WalletLogger::critical(tr("[Application event handler] Start payment server error: %1.").arg(errorString()));
   }
+  WalletLogger::info(tr("[ApplicationEventHandler] 1"));
 }
 
 QUrl ApplicationEventHandler::getLastReceivedUrl() {

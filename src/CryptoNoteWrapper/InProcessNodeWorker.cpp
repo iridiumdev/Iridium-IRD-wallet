@@ -20,6 +20,9 @@
 #include <QEventLoop>
 #include <QSemaphore>
 
+#include <boost/program_options.hpp>
+#include <boost/any.hpp>
+
 #include <functional>
 
 #include "InProcessNodeWorker.h"

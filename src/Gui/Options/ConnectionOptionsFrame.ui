@@ -81,7 +81,7 @@
       <item alignment="Qt::AlignTop">
        <widget class="WalletGui::WalletSmallGrayTextLabel" name="m_autoHelperLabel">
         <property name="text">
-         <string>Wallet will connect to local Bytecoin daemon process on port 8081. In case of no local daemon running it will use an in-wallet embedded node implementation.</string>
+         <string>Wallet will connect to local Iridium daemon process on port 12007. In case of no local daemon running it will use an in-wallet embedded node implementation.</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -146,7 +146,7 @@
       <item alignment="Qt::AlignTop">
        <widget class="WalletGui::WalletSmallGrayTextLabel" name="m_embeddedHelperLabel">
         <property name="text">
-         <string>An in-wallet embedded Bytecoin node will be used.</string>
+         <string>An in-wallet embedded Iridium node will be used.</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -270,7 +270,7 @@
       <item alignment="Qt::AlignTop">
        <widget class="WalletGui::WalletSmallGrayTextLabel" name="m_localHelperLabel">
         <property name="text">
-         <string>Wallet will connect to local Bytecoin daemon process. Please specify daemon's port.</string>
+         <string>Wallet will connect to local Iridium daemon process. Please specify daemon's port.</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -424,7 +424,7 @@
       <item alignment="Qt::AlignTop">
        <widget class="WalletGui::WalletSmallGrayTextLabel" name="m_remoteHelperLabel">
         <property name="text">
-         <string>Wallet will connect to Bytecoin node running on another PC in the local or global network. Please specify IP address or domain name and the port.</string>
+         <string>Wallet will connect to Iridium node running on another PC in the local or global network. Please specify IP address or domain name and the port.</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
