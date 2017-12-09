@@ -132,7 +132,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1200, 700);
+        MainWindow->resize(1220, 700);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -575,7 +575,7 @@ public:
         menuFile->addAction(m_exitAction);
         menuSettings->addAction(m_encryptWalletAction);
         menuSettings->addAction(m_changePasswordAction);
-        menuSettings->addAction(m_removePendingTxAction);
+//        menuSettings->addAction(m_removePendingTxAction);
         menuSettings->addSeparator();
         menuSettings->addAction(m_autostartAction);
         menuSettings->addAction(m_minimizeToTrayAction);
@@ -584,7 +584,7 @@ public:
         menuSettings->addAction(m_preferencesAction);
         menuSettings->addAction(menuThemes->menuAction());
         menuHelp->addAction(m_communityForumAction);
-        menuHelp->addAction(m_reportIssueAction);
+//        menuHelp->addAction(m_reportIssueAction);
         menuHelp->addAction(m_aboutIridiumAction);
         menuHelp->addAction(m_aboutQtAction);
 
@@ -648,7 +648,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         m_importKeyAction->setToolTip(QApplication::translate("MainWindow", "Import key", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        m_communityForumAction->setText(QApplication::translate("MainWindow", "Join us on Discord", Q_NULLPTR));
+        m_communityForumAction->setText(QApplication::translate("MainWindow", "Main BTT Thread", Q_NULLPTR));
         m_reportIssueAction->setText(QApplication::translate("MainWindow", "Report an issue", Q_NULLPTR));
         m_resetAction->setText(QApplication::translate("MainWindow", "Reset wallet", Q_NULLPTR));
         m_saveKeysAction->setText(QApplication::translate("MainWindow", "Save wallet keys", Q_NULLPTR));

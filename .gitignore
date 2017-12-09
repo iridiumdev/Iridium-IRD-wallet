@@ -1,9 +1,3 @@
 .DS_Store
-tags
 build
-*~
-*.dir
-x64
-Win32
-.vs
 *.user

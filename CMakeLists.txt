@@ -1,3 +1,11 @@
+#  Iridium wallet Graphical User Interface
+#  Based on Bytecoin wallet
+#
+#  First updtate submodules
+#  git submodule update --init --recursive
+#  git submodule foreach git pull origin master
+#
+
 cmake_minimum_required(VERSION 3.10)
 
 foreach(p
