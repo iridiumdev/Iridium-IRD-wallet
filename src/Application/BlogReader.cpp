@@ -35,7 +35,8 @@ namespace {
 
 const char BLOG_RSS_SCHEME[] = "http";
 const char BLOG_RSS_HOST[] = "ird.cash";
-const char BLOG_RSS_PATH[] = "/blog/feed.atom/";
+const char BLOG_RSS_PATH[] = "/category/news/feed/atom/";
+//const char BLOG_RSS_PATH[] = "/feed/atom/";
 
 const char BLOG_RSS_ID_TAG_NAME[] = "id";
 const char BLOG_RSS_LINK_TAG_NAME[] = "link";
@@ -58,7 +59,7 @@ BlogReader::~BlogReader() {
 }
 
 QString BlogReader::getName() const {
-  return tr("Iridium Blog:");
+  return tr("Iridium News:");
 }
 
 QPixmap BlogReader::getIcon() const {
@@ -214,13 +215,16 @@ void BlogReader::processBlogReplyData(const QString& _data) {
     xml.readNext();
     if (xml.isStartElement() && !xml.name().compare(QString("entry"))) {
       MessageItem messageItem;
+      // wordpress send 3 URL By default so only the first goes on the right place
+      bool takeFirstUrl(false);
       while (!xml.atEnd() && !(xml.isEndElement() && !xml.name().compare(QString("entry")))) {
         xml.readNext();
         if (xml.isStartElement()) {
           if (!xml.name().compare(QString(BLOG_RSS_ID_TAG_NAME))) {
             messageItem.messageId = xml.readElementText();
-          } else if(!xml.name().compare(QString(BLOG_RSS_LINK_TAG_NAME))) {
+          } else if(!xml.name().compare(QString(BLOG_RSS_LINK_TAG_NAME)) && !takeFirstUrl) {
             messageItem.messageSourceUrl = xml.attributes().value(BLOG_RSS_LINK_HREF_ATTRIBUTE_NAME).toString();
+            takeFirstUrl = true;
           } else if(!xml.name().compare(QString(BLOG_RSS_TITLE_TAG_NAME))) {
             messageItem.messageTitle = xml.readElementText();
           } else if(!xml.name().compare(QString(BLOG_RSS_CONTENT_TAG_NAME))) {
