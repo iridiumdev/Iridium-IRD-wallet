@@ -61,7 +61,9 @@ endif ()
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
-set(VERSION "2.1.2")
+set(VERSION "2.1.3")
+set(COMMIT_ID ${GIT_REVISION})
+
 configure_file("cryptonote/src/version.h.in" "version.h")
 configure_file("cryptonote/src/version.h.in" ${CMAKE_SOURCE_DIR}/src/version.h)
 configure_file("src/CryptoNoteWalletConfig.h.in" "CryptoNoteWalletConfig.h")

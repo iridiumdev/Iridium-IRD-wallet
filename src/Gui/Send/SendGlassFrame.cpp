@@ -38,7 +38,7 @@ const quint32 MAX_QUINT32 = std::numeric_limits<quint32>::max();
 }
 
 SendGlassFrame::SendGlassFrame(QWidget* _parent) : GlassFrame(_parent), m_currentHeight(MAX_QUINT32), m_totalHeight(MAX_QUINT32),
-  m_pixmapBuffer(QSize(340, 340) * QApplication::primaryScreen()->devicePixelRatio()),
+  m_pixmapBuffer(QSize(200, 200) * QApplication::primaryScreen()->devicePixelRatio()),
   m_lastThemeName(Settings::instance().getCurrentTheme()) {
   setStyleSheet(Settings::instance().getCurrentStyle().makeStyleSheet(SEND_GLASS_FRAME_STYLE_SHEET_TEMPLATE));
 }
@@ -104,7 +104,7 @@ void SendGlassFrame::drawProgressLabel(QPainter &_painter) {
   QFont font;
   font.setBold(true);
   font.setPixelSize(14);
-  QString msg = tr("You will be able to send Iridium\nwhen the wallet is synchronized");
+  QString msg = tr("You will be able to send Iridium\nwhen the transactions are checked");
   QFontMetrics fm(font);
   QRect messageRect = fm.boundingRect(QRect(), Qt::AlignCenter, msg);
   messageRect.moveCenter(QPoint(m_pixmapBuffer.width() / 2, 163));
@@ -121,7 +121,7 @@ void SendGlassFrame::drawProgressValue(QPainter &_painter) {
   QFont font;
   font.setBold(false);
   font.setPixelSize(10);
-  QString msg = QString("%1 %2/%3").arg(tr("Synchronizing")).arg(m_currentHeight).arg(m_totalHeight);
+  QString msg = QString("%1 %2/%3").arg(tr("Checking transaction ")).arg(m_currentHeight).arg(m_totalHeight);
   QFontMetrics fm(font);
   QRect messageRect = fm.boundingRect(QRect(), Qt::AlignCenter, msg);
   messageRect.moveCenter(QPoint(m_pixmapBuffer.width() / 2, 198));
