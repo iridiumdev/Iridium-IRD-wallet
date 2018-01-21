@@ -13,3 +13,15 @@ This is the iridium gui wallet source code and binary release for MacOs, Windows
 [Iridium core (source and binaries)](https://github.com/iridiumdev/iridium)
 
 [iridium graphicals elements](https://github.com/iridiumdev/iridium-graphics)
+
+Compilation tips : 
+
+```
+$ git clone https://github.com/iridiumdev/iridium-wallet.git
+$ cd iridium-wallet
+$ git submodule update --init
+$ mkdir build
+$ cd build
+$ cmake -D STATIC=ON -D CMAKE_BUILD_TYPE=RELEASE ..
+$ PORTABLE=1 make
+```
