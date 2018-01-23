@@ -20,6 +20,7 @@ Compilation tips :
 $ git clone https://github.com/iridiumdev/iridium-wallet.git
 $ cd iridium-wallet
 $ git submodule update --init
+$ git submodule foreach git pull origin master // update the core code to latest commit 
 $ mkdir build
 $ cd build
 $ cmake -D STATIC=ON -D CMAKE_BUILD_TYPE=RELEASE ..
