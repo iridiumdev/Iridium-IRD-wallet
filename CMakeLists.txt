@@ -6,15 +6,15 @@
 #  git submodule foreach git pull origin master
 #
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.1)
 
 #Set build version
 set(VERSION_MAJOR "2")
-set(VERSION_MINOR "1.3f-${CMAKE_BUILD_TYPE}")
+set(VERSION_MINOR "1.3")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
 
 foreach(p
-        CMP0071 # 3.10: Let AUTOMOC and AUTOUIC process GENERATED files
+        CMP0071 # 3.1: Let AUTOMOC and AUTOUIC process GENERATED files
         )
     if(POLICY ${p})
         cmake_policy(SET ${p} NEW)
@@ -43,7 +43,7 @@ else()
     set(COMMIT_ID "unknown")
 endif()
 
-set(GIT_REVISION ${COMMIT_ID})
+set(GIT_REVISION "${COMMIT_ID}-${CMAKE_BUILD_TYPE}")
 set(CRYPTONOTE_LIB cryptoNote)
 
 include_directories(${CMAKE_BINARY_DIR}
@@ -287,7 +287,7 @@ message(STATUS "Build : ${CMAKE_BUILD_TYPE}")
 message(STATUS "Compiler : ${CMAKE_C_COMPILER_ID} version ${CMAKE_CXX_COMPILER_VERSION}")
 message(STATUS "Branch : ${GIT_BRANCH}")
 message(STATUS "Version : ${VERSION}")
-message(STATUS "Revision : ${COMMIT_ID}")
+message(STATUS "Revision : ${GIT_REVISION}")
 message(STATUS "Portable : ${PORTABLE}" )
 message(STATUS "----------------------------------------------------------")
 configure_file("cryptonote/src/version.h.in" "version.h")
