@@ -25,28 +25,9 @@ include(CryptoNoteWallet.cmake)
 
 project(${CN_PROJECT_NAME})
 
-find_package(Git QUIET)
-if(Git_FOUND OR GIT_FOUND)
-    message(STATUS "Found Git: ${GIT_EXECUTABLE}")
-    execute_process(COMMAND git rev-parse --abbrev-ref HEAD  # Get the current branch
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE GIT_BRANCH
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-    execute_process(COMMAND git log -1 --format=%h # Get latest commit hash
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE COMMIT_ID
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-else()
-    message(STATUS "Git not found !")
-    set(GIT_BRANCH "unknown")
-    set(COMMIT_ID "unknown")
-endif()
-
-set(GIT_REVISION "${COMMIT_ID}-${CMAKE_BUILD_TYPE}")
 set(CRYPTONOTE_LIB cryptoNote)
 
-include_directories(${CMAKE_BINARY_DIR}
+include_directories(${CMAKE_CURRENT_BINARY_DIR}
     src
     include
     cryptonote/external
@@ -170,30 +151,34 @@ file(GLOB_RECURSE CRYPTONOTE_SOURCES
     cryptonote/src/Miner/*.cpp
     )
 
-file(GLOB_RECURSE SOURCES src/*.cpp)
-file(GLOB_RECURSE HEADERS src/*.h)
-file(GLOB_RECURSE FORMS src/gui/ui/*.ui)
+file(GLOB_RECURSE WALLET_SOURCES src/*.cpp)
+file(GLOB_RECURSE WALLET_HEADERS src/*.h)
+file(GLOB_RECURSE WALLET_FORMS src/Gui/*/*.ui)
 
 if(MSVC)
     include_directories(Platform/Windows)
-    set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Windows/ApplicationEventHandler.cpp)
+    set(WALLET_SOURCES ${WALLET_SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Windows/ApplicationEventHandler.cpp)
 elseif(APPLE)
     include_directories(Platform/OSX)
     include_directories(Platform/Posix)
-    set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/OSX/ApplicationEventHandler.h ${CMAKE_SOURCE_DIR}/Platform/OSX/ApplicationEventHandler.mm ${CMAKE_SOURCE_DIR}/Platform/OSX/INotificationMonitorObserver.h ${CMAKE_SOURCE_DIR}/Platform/OSX/NotificationMonitor.h ${CMAKE_SOURCE_DIR}/Platform/OSX/NotificationMonitor.mm ${CMAKE_SOURCE_DIR}/Platform/OSX/WalletApplication.mm )
-    set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
+    set(WALLET_SOURCES ${WALLET_SOURCES} ${CMAKE_SOURCE_DIR}/Platform/OSX/ApplicationEventHandler.h ${CMAKE_SOURCE_DIR}/Platform/OSX/ApplicationEventHandler.mm ${CMAKE_SOURCE_DIR}/Platform/OSX/INotificationMonitorObserver.h ${CMAKE_SOURCE_DIR}/Platform/OSX/NotificationMonitor.h ${CMAKE_SOURCE_DIR}/Platform/OSX/NotificationMonitor.mm ${CMAKE_SOURCE_DIR}/Platform/OSX/WalletApplication.mm )
+    set(WALLET_SOURCES ${WALLET_SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
 else()
     include_directories(Platform/Linux)
     include_directories(Platform/Posix)
-    set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Linux/ApplicationEventHandler.cpp)
-    set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
+    set(WALLET_SOURCES ${WALLET_SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Linux/ApplicationEventHandler.cpp)
+    set(WALLET_SOURCES ${WALLET_SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
 endif()
 
 
-set(QRC src/resources.qrc)
+set(WALLET_RESOURCES src/resources.qrc)
 
-qt5_wrap_ui(UIS ${FORMS})
-qt5_add_resources(RCC ${QRC})
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+Qt5_wrap_cpp(WALLET_HEADERS_MOC ${WALLET_HEADERS})
+qt5_wrap_ui(WALLET_FORMS_HEADERS ${WALLET_FORMS})
+qt5_add_resources(WALLET_RESOURCES_RCC ${WALLET_RESOURCES})
 
 if (WIN32)
     if (NOT MSVC)
@@ -215,7 +200,7 @@ elseif (UNIX)
     if (APPLE)
         enable_language(ASM)
         file(GLOB_RECURSE OBJC_SOURCES src/*.mm)
-        set(SOURCES ${SOURCES} ${OBJC_SOURCES})
+        set(WALLET_SOURCES ${WALLET_SOURCES} ${OBJC_SOURCES})
         set(PLATFORM_DIR OSX)
         set(MACOSX_BUNDLE_INFO_STRING "Iridium GUI wallet v${VERSION} ( ${GIT_REVISION} )")
         set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VERSION} ( ${GIT_REVISION} )")
@@ -266,7 +251,7 @@ add_library(${CRYPTONOTE_LIB} STATIC ${CRYPTONOTE_SOURCES})
 set_target_properties(${CRYPTONOTE_LIB} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
 target_link_libraries(${CRYPTONOTE_LIB} rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIBRARIES})
 
-add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${SOURCES} ${HEADERS} ${UIS} ${RCC})
+add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${WALLET_SOURCES} ${WALLET_HEADERS} ${WALLET_FORMS_HEADERS} ${WALLET_RESOURCES_RCC})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
 target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES})
@@ -281,7 +266,25 @@ endif (APPLE)
 
 qt5_use_modules(${PROJECT_NAME} Widgets Gui Network)
 add_subdirectory(cryptonote/external)
+find_package(Git QUIET)
+if(Git_FOUND OR GIT_FOUND)
+    message(STATUS "Found Git: ${GIT_EXECUTABLE}")
+    execute_process(COMMAND git rev-parse --abbrev-ref HEAD  # Get the current branch
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_BRANCH
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
 
+    execute_process(COMMAND git log -1 --format=%h # Get latest commit hash
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE COMMIT_ID
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+else()
+    message(STATUS "Git not found !")
+    set(GIT_BRANCH "unknown")
+    set(COMMIT_ID "unknown")
+endif()
+
+set(GIT_REVISION "${COMMIT_ID}-${CMAKE_BUILD_TYPE}")
 message(STATUS "--------------------- Iridium Wallet build details ----------------------------")
 message(STATUS "Build : ${CMAKE_BUILD_TYPE}")
 message(STATUS "Compiler : ${CMAKE_C_COMPILER_ID} version ${CMAKE_CXX_COMPILER_VERSION}")
@@ -293,4 +296,3 @@ message(STATUS "----------------------------------------------------------")
 configure_file("cryptonote/src/version.h.in" "version.h")
 configure_file("cryptonote/src/version.h.in" ${CMAKE_SOURCE_DIR}/src/version.h)
 configure_file("src/CryptoNoteWalletConfig.h.in" "CryptoNoteWalletConfig.h")
-
