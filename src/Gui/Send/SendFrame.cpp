@@ -69,10 +69,10 @@ const char SEND_FRAME_STYLE_SHEET[] =
   "}";
 
 const quint64 MAXIMUM_UNSYNCED_BLOCKS_WHEN_SEND_AVAILABLE = 5;
-const quint64 DEFAULT_MIXIN_VALUE = 5;
-const quint64 MAX_MIXIN_VALUE = 10;
-const quint64 CRITICAL_MIXIN_BOUND = 3;
-const quint64 NORMAL_MIXIN_BOUND = 5;
+const quint64 DEFAULT_MIXIN_VALUE = 3;
+const quint64 MAX_MIXIN_VALUE = 6;
+const quint64 CRITICAL_MIXIN_BOUND = 2;
+const quint64 NORMAL_MIXIN_BOUND = 3;
 const char PAYMENT_URL_AMOUNT_TAG[] = "amount";
 const char PAYMENT_URL_PAYMENT_ID_TAG[] = "payment_id";
 const char PAYMENT_URL_MESSAGE_TAG[] = "message";
@@ -379,7 +379,7 @@ void SendFrame::sendClicked() {
     m_mainWindow);
   dlg.setMinimumHeight(130);
   int mixin = m_ui->m_mixinSpin->value();
-  if (mixin > 6 && dlg.exec() == QDialog::Rejected) {
+  if (mixin >= 6 && dlg.exec() == QDialog::Rejected) {
     return;
   }
 
