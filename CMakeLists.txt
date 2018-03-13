@@ -9,8 +9,8 @@
 cmake_minimum_required(VERSION 3.1)
 
 #Set build version
-set(VERSION_MAJOR "2")
-set(VERSION_MINOR "1.3")
+set(VERSION_MAJOR "3")
+set(VERSION_MINOR "0.0")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
 
 foreach(p
