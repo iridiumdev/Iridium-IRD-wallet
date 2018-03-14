@@ -1,7 +1,0 @@
-#define BUILD_COMMIT_ID "ffb0ec9"
-#define PROJECT_VERSION "3.0.0"
-#define PROJECT_VERSION_BUILD_NO "ffb0ec9"
-#define PROJECT_VERSION_LONG PROJECT_VERSION " (" "ffb0ec9" ")"
-#define VERSION_MAJOR "3"
-#define VERSION_MINOR "0.0"
-#define VERSION_PATCH "ffb0ec9"
