@@ -292,13 +292,13 @@
       <item row="0" column="1">
        <widget class="QSpinBox" name="m_mixinSpin">
         <property name="minimum">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="maximum">
-         <number>6</number>
+         <number>4</number>
         </property>
         <property name="value">
-         <number>3</number>
+         <number>2</number>
         </property>
        </widget>
       </item>
@@ -327,16 +327,16 @@
          </size>
         </property>
         <property name="maximum">
-         <number>6</number>
+         <number>5</number>
         </property>
         <property name="pageStep">
          <number>1</number>
         </property>
         <property name="value">
-         <number>3</number>
+         <number>2</number>
         </property>
         <property name="sliderPosition">
-         <number>3</number>
+         <number>2</number>
         </property>
         <property name="tracking">
          <bool>false</bool>
