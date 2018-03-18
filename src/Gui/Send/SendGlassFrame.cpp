@@ -38,7 +38,7 @@ const quint32 MAX_QUINT32 = std::numeric_limits<quint32>::max();
 }
 
 SendGlassFrame::SendGlassFrame(QWidget* _parent) : GlassFrame(_parent), m_currentHeight(MAX_QUINT32), m_totalHeight(MAX_QUINT32),
-  m_pixmapBuffer(QSize(200, 200) * QApplication::primaryScreen()->devicePixelRatio()),
+  m_pixmapBuffer(QSize(300, 300) * QApplication::primaryScreen()->devicePixelRatio()),
   m_lastThemeName(Settings::instance().getCurrentTheme()) {
   setStyleSheet(Settings::instance().getCurrentStyle().makeStyleSheet(SEND_GLASS_FRAME_STYLE_SHEET_TEMPLATE));
 }
