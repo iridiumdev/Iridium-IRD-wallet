@@ -21,6 +21,8 @@
 #include "ICryptoNoteAdapter.h"
 #include "INodeAdapter.h"
 
+#include "WalletLogger/WalletLogger.h"
+
 namespace WalletGui {
 
 namespace {
@@ -237,7 +239,7 @@ QVariant WalletStateModel::getUserRoleRole(const QModelIndex& _index, int _role)
   case ROLE_IS_SYNCHRONIZED:
     return m_isSynchronized;
   case ROLE_ABOUT_TO_BE_SYNCHRONIZED:
-    return m_isSynchronized || (m_totalHeight > 0 && (m_totalHeight - m_currentHeight < 5 || m_totalHeight < m_currentHeight));
+    return m_isSynchronized || (m_totalHeight > 0 && (m_totalHeight - m_currentHeight < SYNC_DISTANCE || m_totalHeight < m_currentHeight));
   }
 
   return QVariant();
