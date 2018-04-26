@@ -79,9 +79,9 @@ Settings& Settings::instance() {
 
 
 Settings::Settings() : m_p2pBindPort(0), m_cmdLineParser(nullptr) {
-  m_defaultPoolList << "ird.uvac.fr:3333";
-  m_defaultPoolList << "pool.mine77.net:3333";
-  m_defaultPoolList << "irdpool.tk:3333";
+  m_defaultPoolList << "irdpool.fr:3333";
+  m_defaultPoolList << "irdpool.ca:3333";
+  m_defaultPoolList << "irdpool.net:3333";
 
   Style* lightStyle = new LightStyle();
   Style* darkStyle = new DarkStyle();
