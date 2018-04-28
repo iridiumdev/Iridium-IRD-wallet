@@ -9,10 +9,28 @@
 cmake_minimum_required(VERSION 3.1)
 
 #Set build version
-set(VERSION_MAJOR "3")
+set(VERSION_MAJOR "4")
 set(VERSION_MINOR "0.0")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
+find_package(Git QUIET)
+if(Git_FOUND OR GIT_FOUND)
+    message(STATUS "Found Git: ${GIT_EXECUTABLE}")
+    execute_process(COMMAND git rev-parse --abbrev-ref HEAD  # Get the current branch
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_BRANCH
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
 
+    execute_process(COMMAND git log -1 --format=%h # Get latest commit hash
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE COMMIT_ID
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+else()
+    message(STATUS "Git not found !")
+    set(GIT_BRANCH "unknown")
+    set(COMMIT_ID "unknown")
+endif()
+
+set(GIT_REVISION "${COMMIT_ID}-${CMAKE_BUILD_TYPE}")
 foreach(p
         CMP0071 # 3.1: Let AUTOMOC and AUTOUIC process GENERATED files
         )
@@ -202,8 +220,8 @@ elseif (UNIX)
         file(GLOB_RECURSE OBJC_SOURCES src/*.mm)
         set(WALLET_SOURCES ${WALLET_SOURCES} ${OBJC_SOURCES})
         set(PLATFORM_DIR OSX)
-        set(MACOSX_BUNDLE_INFO_STRING "Iridium GUI wallet v${VERSION} ( ${GIT_REVISION} )")
-        set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VERSION} ( ${GIT_REVISION} )")
+        set(MACOSX_BUNDLE_INFO_STRING "Iridium GUI wallet v${VERSION} ${GIT_REVISION}")
+        set(MACOSX_BUNDLE_LONG_VERSION_STRING "${VERSION} ${GIT_REVISION}")
         set(MACOSX_BUNDLE_BUNDLE_NAME IridiumWallet)
         set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION}")
         set(MACOSX_BUNDLE_BUNDLE_VERSION "${VERSION}")
@@ -266,25 +284,6 @@ endif (APPLE)
 
 qt5_use_modules(${PROJECT_NAME} Widgets Gui Network)
 add_subdirectory(cryptonote/external)
-find_package(Git QUIET)
-if(Git_FOUND OR GIT_FOUND)
-    message(STATUS "Found Git: ${GIT_EXECUTABLE}")
-    execute_process(COMMAND git rev-parse --abbrev-ref HEAD  # Get the current branch
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE GIT_BRANCH
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-    execute_process(COMMAND git log -1 --format=%h # Get latest commit hash
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE COMMIT_ID
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-else()
-    message(STATUS "Git not found !")
-    set(GIT_BRANCH "unknown")
-    set(COMMIT_ID "unknown")
-endif()
-
-set(GIT_REVISION "${COMMIT_ID}-${CMAKE_BUILD_TYPE}")
 message(STATUS "--------------------- Iridium Wallet build details ----------------------------")
 message(STATUS "Build : ${CMAKE_BUILD_TYPE}")
 message(STATUS "Compiler : ${CMAKE_C_COMPILER_ID} version ${CMAKE_CXX_COMPILER_VERSION}")

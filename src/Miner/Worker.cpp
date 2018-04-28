@@ -28,7 +28,9 @@ namespace  {
   void miningRound(Job& _localJob, quint32& _localNonce, Crypto::Hash& _hash, Crypto::cn_context& _context) {
     _localJob.blob.replace(39, sizeof(_localNonce), reinterpret_cast<char*>(&_localNonce), sizeof(_localNonce));
     std::memset(&_hash, 0, sizeof(_hash));
-    Crypto::cn_slow_hash(_context, _localJob.blob.data(), _localJob.blob.size(), _hash);
+    //cn_slow_hash_V6
+    //cn_lite_slow_hash_v1
+    Crypto::cn_lite_slow_hash_v1(_context, _localJob.blob.data(), _localJob.blob.size(), _hash);
   }
 }
 

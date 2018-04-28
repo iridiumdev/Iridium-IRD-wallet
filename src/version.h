@@ -1,0 +1,8 @@
+#define BUILD_COMMIT_ID "ecb885a"
+#define PROJECT_VERSION "4.0.0"
+#define PROJECT_VERSION_BUILD_NO "ecb885a"
+#define PROJECT_VERSION_LONG PROJECT_VERSION " (" "ecb885a" ")"
+#define VERSION_MAJOR "4"
+#define VERSION_MINOR "0.0"
+#define VERSION_PATCH "ecb885a"
+#define GIT_REVISION "ecb885a-Release"

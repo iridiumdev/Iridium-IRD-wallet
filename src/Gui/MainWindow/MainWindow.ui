@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1273</width>
-    <height>824</height>
+    <width>1260</width>
+    <height>760</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -814,8 +814,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1273</width>
-     <height>21</height>
+     <width>1260</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1022,8 +1022,14 @@
    <property name="checkable">
     <bool>false</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Remove pending TXs</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
    </property>
   </action>
  </widget>
@@ -1097,6 +1103,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="../../resources.qrc"/>
   <include location="../../resources.qrc"/>
  </resources>
  <connections>
