@@ -60,8 +60,8 @@ namespace WalletGui {
 namespace {
 
 const int MAX_RECENT_WALLET_COUNT = 10;
-const char COMMUNITY_FORUM_URL[] = "https://bitcointalk.org/index.php?topic=2150442.0;all";
-const char REPORT_ISSUE_URL[] = "http://ird.cash/contact";
+const char COMMUNITY_FORUM_URL[] = "https://discord.gg/xU85tpS";
+const char REPORT_ISSUE_URL[] = "https://github.com/iridiumdev/iridium-wallet/issues";
 
 const char DONATION_URL_DONATION_TAG[] = "donation";
 const char DONATION_URL_LABEL_TAG[] = "label";

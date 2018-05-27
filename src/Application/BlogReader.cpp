@@ -33,7 +33,7 @@ namespace WalletGui {
 
 namespace {
 
-const char BLOG_RSS_SCHEME[] = "http";
+const char BLOG_RSS_SCHEME[] = "https";
 const char BLOG_RSS_HOST[] = "ird.cash";
 const char BLOG_RSS_PATH[] = "/category/news/feed/atom/";
 //const char BLOG_RSS_PATH[] = "/feed/atom/";
