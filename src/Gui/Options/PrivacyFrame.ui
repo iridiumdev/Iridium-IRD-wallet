@@ -70,8 +70,14 @@
       </property>
       <item>
        <widget class="QCheckBox" name="m_newsCheck">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
-         <string>I want to see Iridium Blog feeds</string>
+         <string>I want to see Iridium News feeds</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
