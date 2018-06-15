@@ -370,7 +370,7 @@ quint64 Settings::getOptimizationMixin() const {
 bool Settings::isNewsEnabled() const {
   QReadLocker lock(&m_lock);
   if (!m_settings.contains(OPTION_PRIVACY_PARAMS)) {
-    return false;
+    return true;
   }
 
   QJsonObject privacyParams = m_settings.value(OPTION_PRIVACY_PARAMS).toObject();
