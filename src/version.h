@@ -1,8 +1,0 @@
-#define BUILD_COMMIT_ID "bf9529d"
-#define PROJECT_VERSION "4.0.1"
-#define PROJECT_VERSION_BUILD_NO "bf9529d"
-#define PROJECT_VERSION_LONG PROJECT_VERSION " (" "bf9529d" ")"
-#define VERSION_MAJOR "4"
-#define VERSION_MINOR "0.1"
-#define VERSION_PATCH "bf9529d"
-#define GIT_REVISION "bf9529d-Release"
