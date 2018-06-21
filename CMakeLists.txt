@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.1)
 
 #Set build version
 set(VERSION_MAJOR "4")
-set(VERSION_MINOR "0.1")
+set(VERSION_MINOR "0.2")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
 find_package(Git QUIET)
 if(Git_FOUND OR GIT_FOUND)
@@ -61,6 +61,11 @@ find_package(Qt5 REQUIRED
     DBus
     )
 
+  set(WALLET_RESOURCES src/resources.qrc)
+  set(CMAKE_AUTOMOC ON)
+  set(CMAKE_AUTOUIC ON)
+  set(CMAKE_AUTORCC ON)
+
 include_directories(${Qt5DBus_INCLUDE_DIRS} cryptonote/external/rocksdb/include/ include src external "${CMAKE_CURRENT_BINARY_DIR}/version")
 
 set(Boost_USE_STATIC_LIBS ON)
@@ -79,8 +84,6 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 add_definitions(-DGIT_REVISION="${GIT_REVISION}")
-
-set(CMAKE_AUTOMOC ON)
 
 file(GLOB_RECURSE CRYPTONOTE_SOURCES
     cryptonote/external/miniupnpc/connecthostport.c
@@ -188,15 +191,9 @@ else()
     set(WALLET_SOURCES ${WALLET_SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
 endif()
 
-
-set(WALLET_RESOURCES src/resources.qrc)
-
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
-
-Qt5_wrap_cpp(WALLET_HEADERS_MOC ${WALLET_HEADERS})
+#qt5_wrap_cpp(WALLET_HEADERS_MOC ${WALLET_HEADERS})
 qt5_wrap_ui(WALLET_FORMS_HEADERS ${WALLET_FORMS})
-qt5_add_resources(WALLET_RESOURCES_RCC ${WALLET_RESOURCES})
+#qt5_add_resources(WALLET_RESOURCES_RCC ${WALLET_RESOURCES})
 
 if (WIN32)
     if (NOT MSVC)
@@ -269,7 +266,7 @@ add_library(${CRYPTONOTE_LIB} STATIC ${CRYPTONOTE_SOURCES})
 set_target_properties(${CRYPTONOTE_LIB} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
 target_link_libraries(${CRYPTONOTE_LIB} rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIBRARIES})
 
-add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${WALLET_SOURCES} ${WALLET_HEADERS} ${WALLET_FORMS_HEADERS} ${WALLET_RESOURCES_RCC})
+add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${WALLET_SOURCES} ${WALLET_HEADERS} ${WALLET_FORMS_HEADERS} ${WALLET_RESOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
 target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES})
