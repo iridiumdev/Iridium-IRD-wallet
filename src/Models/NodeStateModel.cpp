@@ -117,7 +117,7 @@ void NodeStateModel::localBlockchainUpdated(CryptoNote::BlockHeaderInfo _lastLoc
 }
 
 void NodeStateModel::lastKnownBlockHeightUpdated(quint32 _height) {
-  quint32 knownBlockCount = _height + 1;
+  quint32 knownBlockCount = _height; // + 1; Bytecoin daemon only
   if (m_knownBlockCount != knownBlockCount) {
     m_knownBlockCount = knownBlockCount;
     Q_EMIT dataChanged(index(0, COLUMN_KNOWN_BLOCK_COUNT), index(0, COLUMN_KNOWN_BLOCK_COUNT),
