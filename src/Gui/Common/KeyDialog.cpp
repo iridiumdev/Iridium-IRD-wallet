@@ -66,10 +66,27 @@ KeyDialog::KeyDialog(const QByteArray& _key, bool _isTracking, QWidget *_parent)
   m_ui->m_fileButton->setText(tr("Save to file"));
   m_ui->m_okButton->setText(tr("Close"));
   m_ui->m_keyEdit->setReadOnly(true);
+  m_ui->m_spendKey->setReadOnly(true);
+  m_ui->m_viewKey->setReadOnly(true);
   m_ui->m_keyEdit->setPlainText(m_key.toHex().toUpper());
+
+
+
+
   if (m_isTracking) {
+    m_ui->m_walletLabel->setText(tr("<strong>Wallet view only key :</strong>"));
+    m_ui->m_simpleLabel->setVisible(false);
+    m_ui->m_spendLabel->setVisible(false);
+    m_ui->m_spendKey->setVisible(false);
+    m_ui->m_viewLabel->setVisible(false);
+    m_ui->m_viewKey->setVisible(false);
     m_ui->m_descriptionLabel->setText(tr("Tracking key allows other people to see all incoming transactions of this wallet.\n"
       "It doesn't allow spending your funds."));
+  } else {
+    QByteArray splitKey=m_key.mid(m_key.size()/2);
+    m_ui->m_walletLabel->setText(tr("<strong>Wallet Key :</strong> This key IS your wallet. Never loose it !"));
+    m_ui->m_spendKey->setPlainText(splitKey.mid(0,splitKey.size()/2).toHex().toUpper());
+    m_ui->m_viewKey->setPlainText(splitKey.mid(splitKey.size()/2).toHex().toUpper());
   }
 
   m_ui->m_cancelButton->hide();
@@ -83,8 +100,14 @@ KeyDialog::KeyDialog(QWidget* _parent)
   , m_isTracking(false)
   , m_isExport(false) {
   m_ui->setupUi(this);
-  setWindowTitle(m_isTracking ? tr("Import tracking key") : tr("Import key"));
+  setWindowTitle(m_isTracking ? tr("Import a tracking key") : tr("Import a wallet key"));
+  m_ui->m_walletLabel->setText(tr("<strong>Wallet Key :</strong>"));
   m_ui->m_fileButton->setText(tr("Load from file"));
+  m_ui->m_spendLabel->setVisible(false);
+  m_ui->m_viewLabel->setVisible(false);
+  m_ui->m_simpleLabel->setVisible(false);
+  m_ui->m_spendKey->setVisible(false);
+  m_ui->m_viewKey->setVisible(false);
   if (m_isTracking) {
     m_ui->m_descriptionLabel->setText(tr("Import a tracking key of a wallet to see all its incoming transactions.\n"
       "It doesn't allow spending funds."));
@@ -160,9 +183,9 @@ void KeyDialog::fileClicked() {
 
 void KeyDialog::keyChanged() {
   m_isTracking = isTrackingKeys(getKey());
-  setWindowTitle(m_isTracking ? tr("Import tracking key") : tr("Import key"));
+  setWindowTitle(m_isTracking ? tr("Export tracking key") : tr("Export key"));
   if (m_isTracking) {
-    m_ui->m_descriptionLabel->setText(tr("Import a tracking key of a wallet to see all its incoming transactions.\n"
+    m_ui->m_descriptionLabel->setText(tr("Import this tracking key of a wallet to see all its incoming transactions.\n"
       "It doesn't allow spending funds."));
   } else {
     m_ui->m_descriptionLabel->clear();
