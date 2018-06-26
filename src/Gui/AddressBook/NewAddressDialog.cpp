@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Bytecoin.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <QStyle>
 #include "NewAddressDialog.h"
 #include "IAddressBookManager.h"
 #include "IDonationManager.h"
