@@ -42,6 +42,7 @@ endforeach()
 cmake_policy(SET CMP0058 NEW)
 
 include(CryptoNoteWallet.cmake)
+include(QREncode.cmake)
 
 project(${CN_PROJECT_NAME})
 
@@ -54,6 +55,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
     cryptonote/external/rocksdb/include/
     cryptonote/include
     cryptonote/src
+    libqrencode
     )
 
 find_package(Qt5 REQUIRED
@@ -266,12 +268,12 @@ set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} ${PLATFORM_SOURCES} ${CRYPTONOTE_PL
 
 add_library(${CRYPTONOTE_LIB} STATIC ${CRYPTONOTE_SOURCES})
 set_target_properties(${CRYPTONOTE_LIB} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
-target_link_libraries(${CRYPTONOTE_LIB} rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIBRARIES})
+target_link_libraries(${CRYPTONOTE_LIB} rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIBRARIES} )
 
 add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${WALLET_SOURCES} ${WALLET_HEADERS} ${WALLET_FORMS_HEADERS} ${WALLET_RESOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
-target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES} ${QRENCODE_LIB})
 
 if (APPLE)
   find_package(Qt5PrintSupport REQUIRED)
