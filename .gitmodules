@@ -2,6 +2,8 @@
 	path = cryptonote
 	url = https://github.com/iridiumdev/iridium.git
 [submodule "libqrencode"]
-	path = libqrencode
+        path = libqrencode
+        url = https://github.com/fukuchi/libqrencode.git
+[submodule "libQR"]
+	path = libQR
 	url = https://github.com/fukuchi/libqrencode/
-	branch = 3.4
