@@ -52,10 +52,23 @@
 #include "Models/WalletStateModel.h"
 #include "Gui/Options/OptionsDialog.h"
 #include "Style/Style.h"
+#include "QRLabel.h"
 
 #include "ui_MainWindow.h"
 
 namespace WalletGui {
+
+
+MainWindow* MainWindow::m_instance = nullptr;
+
+MainWindow& MainWindow::instance() {
+  if (m_instance == nullptr) {
+  //  m_instance = new MainWindow;
+  }
+
+  return *m_instance;
+}
+
 
 namespace {
 
@@ -124,6 +137,7 @@ MainWindow::MainWindow(ICryptoNoteAdapter* _cryptoNoteAdapter, IAddressBookManag
   m_blockChainModel = new BlockchainModel(m_cryptoNoteAdapter, m_nodeStateModel, this);
   m_transactionPoolModel = new TransactionPoolModel(m_cryptoNoteAdapter, this);
   m_minerModel = new MinerModel(m_miningManager, this);
+  qr_label = new QRLabel(this);
 
   QList<IWalletUiItem*> uiItems;
   uiItems << m_ui->m_noWalletFrame << m_ui->m_overviewFrame << m_ui->m_sendFrame << m_ui->m_transactionsFrame <<
@@ -195,6 +209,13 @@ MainWindow::MainWindow(ICryptoNoteAdapter* _cryptoNoteAdapter, IAddressBookManag
   connect(m_addRecipientAction, &QAction::triggered, this, &MainWindow::addRecipientTriggered);
   connect(m_ui->m_exitAction, &QAction::triggered, qApp, &QApplication::quit);
   connect(qApp, &QGuiApplication::commitDataRequest, this, &MainWindow::commitData);
+
+    qr_label->setGeometry(970,8,90,90);
+
+    // OPENS THE WALLET
+    qr_label->showQRCode(m_walletStateModel->index(0, WalletStateModel::COLUMN_ADDRESS).data().toString());
+
+
 }
 
 MainWindow::~MainWindow() {
@@ -424,6 +445,7 @@ void MainWindow::walletStateModelDataChanged(const QModelIndex& _topLeft, const 
       m_ui->m_balanceLabel->setCursor(Qt::ArrowCursor);
       m_ui->m_balanceLabel->removeEventFilter(this);
       m_ui->m_balanceLabel->setToolTip(QString());
+      qr_label->showQRCode(m_walletStateModel->index(0, WalletStateModel::COLUMN_ADDRESS).data().toString());
   } else {
       m_syncMovie->stop();
       m_ui->m_balanceLabel->setMovie(nullptr);
@@ -432,6 +454,7 @@ void MainWindow::walletStateModelDataChanged(const QModelIndex& _topLeft, const 
       m_ui->m_balanceLabel->setCursor(Qt::PointingHandCursor);
       m_ui->m_balanceLabel->installEventFilter(this);
       m_ui->m_balanceLabel->setToolTip(tr("Click to copy"));
+      qr_label->clear();
     }
   }
 }
