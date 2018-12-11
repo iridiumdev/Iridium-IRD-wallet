@@ -44,7 +44,7 @@ class WalletApplication : public QApplication, public ISettingsObserver {
 
 public:
   WalletApplication(int& _argc, char** _argv);
-  ~WalletApplication();
+  ~WalletApplication() override;
 
   bool init();
   void dockClickHandler();

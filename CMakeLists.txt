@@ -9,9 +9,10 @@
 cmake_minimum_required(VERSION 3.1)
 
 #Set build version
-set(VERSION_MAJOR "4")
-set(VERSION_MINOR "0.2")
+set(VERSION_MAJOR "5")
+set(VERSION_MINOR "0.0")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
+set(CMAKE_CXX_STANDARD 11)
 find_package(Git QUIET)
 if(Git_FOUND OR GIT_FOUND)
     message(STATUS "Found Git: ${GIT_EXECUTABLE}")
@@ -133,7 +134,7 @@ file(GLOB_RECURSE CRYPTONOTE_SOURCES
     cryptonote/src/crypto/random.c
     cryptonote/src/crypto/skein.c
     cryptonote/src/crypto/slow-hash.c
-    cryptonote/src/crypto/slow-hash.cpp
+    cryptonote/src/crypto/aesb.c
     cryptonote/src/crypto/tree-hash.c
     cryptonote/src/CryptoNoteCore/*.cpp
     cryptonote/src/CryptoNoteProtocol/*.cpp
@@ -224,6 +225,8 @@ elseif (UNIX)
         set(MACOSX_BUNDLE_BUNDLE_NAME IridiumWallet)
         set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION}")
         set(MACOSX_BUNDLE_BUNDLE_VERSION "${VERSION}")
+#        if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+#        endif()
 
         find_package(Qt5PrintSupport REQUIRED)
         include_directories(/usr/include/malloc)
