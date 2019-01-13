@@ -20,6 +20,8 @@
 #include <QUrl>
 #include <QUrlQuery>
 
+#include "../../../cryptonote/src/crypto/crypto.h"
+
 #include <Wallet/WalletErrors.h>
 
 #include "SendFrame.h"
@@ -324,6 +326,13 @@ void SendFrame::clearAll() {
   m_ui->m_sendScrollarea->widget()->adjustSize();
   m_ui->m_sendScrollarea->widget()->updateGeometry();
   m_ui->m_sendScrollarea->updateGeometry();
+}
+
+void SendFrame::randomPaymentID() {
+  char tmp[32];
+  Crypto::generate_random_bytes(32, tmp);
+  QString paymentId = QByteArray::fromRawData(tmp, 32).toHex();
+  m_ui->m_paymentIdEdit->setText(paymentId);
 }
 
 
