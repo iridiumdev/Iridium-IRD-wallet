@@ -122,7 +122,6 @@ private:
   Q_SLOT void saveWalletKeys();
   Q_SLOT void resetWallet();
   Q_SLOT void encryptWallet();
-  Q_SLOT void removePendingTx();
   Q_SLOT void exportKey();
   Q_SLOT void exportTrackingKey();
   Q_SLOT void importKey();

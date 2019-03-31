@@ -250,7 +250,7 @@ void WalletStatusBar::updateStatusDescription() {
   }
 
   QString statusText = tr("Wallet synchronized. Top block height: %1  /  Time (UTC): %2%3");
-  m_syncStatusLabel->setText(statusText.arg(localBlockCount - 1).
+  m_syncStatusLabel->setText(statusText.arg(localBlockCount).
     arg(QLocale(QLocale::English).toString(lastLocalBlockTimestamp, "dd MMM yyyy, HH:mm:ss")).
     arg(warningString));
 }

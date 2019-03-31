@@ -844,7 +844,6 @@
     </widget>
     <addaction name="m_encryptWalletAction"/>
     <addaction name="m_changePasswordAction"/>
-    <addaction name="m_removePendingTxAction"/>
     <addaction name="separator"/>
     <addaction name="m_autostartAction"/>
     <addaction name="m_minimizeToTrayAction"/>
@@ -1018,20 +1017,6 @@
     <string>Export key</string>
    </property>
   </action>
-  <action name="m_removePendingTxAction">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Remove pending TXs</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
-   </property>
-  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1103,7 +1088,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../resources.qrc"/>
   <include location="../../resources.qrc"/>
  </resources>
  <connections>
