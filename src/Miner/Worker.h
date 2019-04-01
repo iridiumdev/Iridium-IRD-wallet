@@ -42,7 +42,7 @@ public:
   Worker(Job& _mainJob, Job& _alternateJob, QReadWriteLock& _mainJobLock, QReadWriteLock& _alternateJobLock,
     std::atomic<quint32>& _mainNonce, std::atomic<quint32>& _alternateNonce, std::atomic<quint32>& _alternateProbability,
     std::atomic<quint32>& _hashCounter, std::atomic<quint32>& _alternateHashCounter, QObject* _parent);
-  ~Worker();
+  ~Worker() override;
 
   virtual void start() override;
   virtual void stop() override;
