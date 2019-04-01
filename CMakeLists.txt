@@ -274,6 +274,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE
 target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES})
 
 if (APPLE)
+  set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Platform/OSX/MacOSXBundleInfo.plist.in)
   find_package(Qt5PrintSupport REQUIRED)
   target_link_libraries(${PROJECT_NAME} Qt5::PrintSupport)
 elseif (UNIX)
