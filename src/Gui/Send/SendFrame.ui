@@ -248,6 +248,34 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="2">
+       <widget class="WalletGui::WalletLargeBlueButton" name="m_randomPaymentIdButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>120</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>Random</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -515,6 +543,12 @@
      <y>318</y>
     </hint>
    </hints>
+  </connection>
+  <connection>
+   <sender>m_randomPaymentIdButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SendFrame</receiver>
+   <slot>randomPaymentID()</slot>
   </connection>
   <connection>
    <sender>m_mixinSpin</sender>
