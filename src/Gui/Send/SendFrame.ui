@@ -249,7 +249,7 @@
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="WalletGui::WalletLargeBlueButton" name="m_randomPaymentIdButton">
+       <widget class="WalletGui::WalletNormalBlueButton" name="m_randomPaymentIdButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -258,21 +258,21 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>120</width>
-          <height>40</height>
+          <width>100</width>
+          <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>120</width>
-          <height>40</height>
+          <width>100</width>
+          <height>30</height>
          </size>
         </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
-         <string>Random</string>
+         <string>Generate</string>
         </property>
        </widget>
       </item>
@@ -472,6 +472,11 @@
    <extends>QLabel</extends>
    <header>Gui/Common/WalletTextLabel.h</header>
   </customwidget>
+  <customwidget>
+   <class>WalletGui::WalletNormalBlueButton</class>
+   <extends>QPushButton</extends>
+   <header>Gui/Common/WalletBlueButton.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>m_paymentIdEdit</tabstop>
@@ -549,6 +554,16 @@
    <signal>clicked()</signal>
    <receiver>SendFrame</receiver>
    <slot>randomPaymentID()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
   </connection>
   <connection>
    <sender>m_mixinSpin</sender>

@@ -20,7 +20,7 @@
 #include <QUrl>
 #include <QUrlQuery>
 
-#include "../../../cryptonote/src/crypto/crypto.h"
+#include "crypto/crypto.h"
 
 #include <Wallet/WalletErrors.h>
 

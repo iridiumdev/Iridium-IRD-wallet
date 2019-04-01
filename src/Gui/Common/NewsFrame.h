@@ -34,7 +34,7 @@ class NewsFrame : public QFrame, public INewsReaderObserver, public IWalletUiIte
 
 public:
   explicit NewsFrame(QWidget* _parent);
-  ~NewsFrame();
+  ~NewsFrame() override;
 
   void setNewsReader(INewsReader* _reader);
 
