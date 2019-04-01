@@ -1,6 +1,6 @@
 # iridium-wallet
 
-![iridium logo](https://avatars1.githubusercontent.com/u/31619794?s=460&v=4)
+![iridium logo](https://ird.cash/wp-content/uploads/2019/01/iridium.svg)
 
 Iridium is a cryptonight based cryptocurrency (ticker : IRD)
 
@@ -20,9 +20,17 @@ Dependencies needed : boost >= 1.58, CMake >= 3.1, GCC >=4.7.3, Qt >=5.0
 
 Currently built release is compiled with boost 1.60 and Qt 5.10
 
+
+**development branch is now the default behavior, with blood and tears.**
+
+If you want to compile the latest stable release, currently in production, clone the master branch :
+```
+git clone -b master clone https://github.com/iridiumdev/iridium-wallet.git
+```
+
 * Clone the repository :
 ```
-$ git clone https://github.com/iridiumdev/iridium-wallet.git
+$ git clone -b master clone https://github.com/iridiumdev/iridium-wallet.git
 ```
   
 * Update core submodule :
