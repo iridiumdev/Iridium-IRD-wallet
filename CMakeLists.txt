@@ -73,8 +73,6 @@ include_directories(${Qt5DBus_INCLUDE_DIRS} cryptonote/external/rocksdb/include/
 
 set(Boost_USE_STATIC_LIBS ON)
 if(WIN32)
-    set(Boost_USE_STATIC_RUNTIME OFF)
-else(WIN32)
     set(Boost_USE_STATIC_RUNTIME ON)
 endif(WIN32)
 
@@ -210,6 +208,11 @@ if (WIN32)
     set(BUILD_PLATFORM WIN32)
     set(BUILD_RESOURCES src/iridiumwallet.rc)
     set(QTMAIN Qt5::WinMain)
+
+   # Force static build mostly for rocksdb
+    foreach(VAR CMAKE_C_FLAGS_DEBUG CMAKE_CXX_FLAGS_DEBUG CMAKE_C_FLAGS_RELWITHDEBINFO CMAKE_CXX_FLAGS_RELWITHDEBINFO CMAKE_C_FLAGS_RELEASE CMAKE_CXX_FLAGS_RELEASE)
+            string(REPLACE "/MD" "/MT" ${VAR} "${${VAR}}")
+    endforeach()
 
 elseif (UNIX)
 
