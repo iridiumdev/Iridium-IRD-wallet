@@ -195,7 +195,8 @@ void KeyDialog::keyChanged() {
 }
 
 void KeyDialog::qrClicked(){
-    QRCodeDialog* m_qrcode = new QRCodeDialog(QString("Your master wallet key"),m_key.toHex().toUpper(),this);
+    QString hint = m_isTracking ? tr("This is your view only wallet key.") : tr("This is your wallet key : never loose it !");
+    QRCodeDialog* m_qrcode = new QRCodeDialog(hint,m_key.toHex().toUpper(),this);
     m_qrcode->show();
 }
 
