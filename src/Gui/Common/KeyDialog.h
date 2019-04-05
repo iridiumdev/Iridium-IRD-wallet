@@ -48,6 +48,8 @@ private:
 
   Q_SLOT void fileClicked();
   Q_SLOT void keyChanged();
+  Q_SLOT void qrClicked();
+
 };
 
 }

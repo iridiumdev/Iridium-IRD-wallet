@@ -38,6 +38,7 @@
 #include "Gui/Common/NewPasswordDialog.h"
 #include "Gui/Common/KeyDialog.h"
 #include "Gui/Common/QuestionDialog.h"
+#include "Gui/Common/QRCodeDialog.h"
 #include "ICryptoNoteAdapter.h"
 #include "INodeAdapter.h"
 #include "Models/AddressBookModel.h"
@@ -788,7 +789,12 @@ void MainWindow::communityForumTriggered() {
 }
 
 void MainWindow::reportIssueTriggered() {
-  QDesktopServices::openUrl(QUrl::fromUserInput(REPORT_ISSUE_URL));
+    QDesktopServices::openUrl(QUrl::fromUserInput(REPORT_ISSUE_URL));
+}
+
+void MainWindow::qrClicked(){
+    QRCodeDialog* m_qrcode = new QRCodeDialog(QString("Your Iridium address"),m_ui->m_addressLabel->text().toLocal8Bit(),this);
+    m_qrcode->show();
 }
 
 }

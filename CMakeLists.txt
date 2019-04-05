@@ -43,6 +43,8 @@ endforeach()
 cmake_policy(SET CMP0058 NEW)
 
 include(CryptoNoteWallet.cmake)
+include(externals/QR-Code-generator.cmake)
+
 
 project(${CN_PROJECT_NAME})
 
@@ -55,6 +57,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
     cryptonote/external/rocksdb/include/
     cryptonote/include
     cryptonote/src
+    externals/QR-Code-generator/cpp/
     )
 
 find_package(Qt5 REQUIRED
@@ -62,6 +65,7 @@ find_package(Qt5 REQUIRED
     Widgets
     Network
     DBus
+    Svg
     )
 
   set(WALLET_RESOURCES src/resources.qrc)
@@ -277,7 +281,7 @@ target_link_libraries(${CRYPTONOTE_LIB} rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIB
 add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${WALLET_SOURCES} ${WALLET_HEADERS} ${WALLET_FORMS_HEADERS} ${WALLET_RESOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
-target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES} ${QRENCODE_LIB})
 
 if (APPLE)
   set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Platform/OSX/MacOSXBundleInfo.plist.in)
@@ -289,7 +293,7 @@ elseif (WIN32)
     target_link_libraries(${PROJECT_NAME} rpcrt4.lib wtsapi32.lib  Imm32 Iphlpapi Winmm)
 endif (APPLE)
 
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Gui Qt5::Network)
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Gui Qt5::Network Qt5::Svg)
 
 add_subdirectory(cryptonote/external)
 message(STATUS "--------------------- Iridium Wallet build details ----------------------------")

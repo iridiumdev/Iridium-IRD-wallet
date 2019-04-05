@@ -17,12 +17,12 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
-
 #include "KeyDialog.h"
 #include "IWalletAdapter.h"
 #include "Settings/Settings.h"
 #include "Style/Style.h"
 #include "ui_KeyDialog.h"
+#include "QRCodeDialog.h"
 
 namespace WalletGui {
 
@@ -55,6 +55,7 @@ bool isTrackingKeys(const QByteArray& _array) {
 
 }
 
+// export dialog
 KeyDialog::KeyDialog(const QByteArray& _key, bool _isTracking, QWidget *_parent)
   : QDialog(_parent, static_cast<Qt::WindowFlags>(Qt::WindowCloseButtonHint))
   , m_ui(new Ui::KeyDialog)
@@ -70,18 +71,16 @@ KeyDialog::KeyDialog(const QByteArray& _key, bool _isTracking, QWidget *_parent)
   m_ui->m_viewKey->setReadOnly(true);
   m_ui->m_keyEdit->setPlainText(m_key.toHex().toUpper());
 
-
-
-
   if (m_isTracking) {
     m_ui->m_walletLabel->setText(tr("<strong>Wallet view only key :</strong>"));
-    m_ui->m_simpleLabel->setVisible(false);
     m_ui->m_spendLabel->setVisible(false);
     m_ui->m_spendKey->setVisible(false);
-    m_ui->m_viewLabel->setVisible(false);
-    m_ui->m_viewKey->setVisible(false);
     m_ui->m_descriptionLabel->setText(tr("Tracking key allows other people to see all incoming transactions of this wallet.\n"
       "It doesn't allow spending your funds."));
+    QByteArray splitKey=m_key.mid(m_key.size()/2);
+    m_ui->m_walletLabel->setText(tr("<strong>Wallet Key :</strong> This is a view only key."));
+    m_ui->m_viewKey->setPlainText(splitKey.mid(splitKey.size()/2).toHex().toUpper());
+
   } else {
     QByteArray splitKey=m_key.mid(m_key.size()/2);
     m_ui->m_walletLabel->setText(tr("<strong>Wallet Key :</strong> This key IS your wallet. Never loose it !"));
@@ -94,20 +93,23 @@ KeyDialog::KeyDialog(const QByteArray& _key, bool _isTracking, QWidget *_parent)
   setStyleSheet(Settings::instance().getCurrentStyle().makeStyleSheet(KEY_DIALOG_STYLE_SHEET_TEMPLATE));
 }
 
+// import dialog
 KeyDialog::KeyDialog(QWidget* _parent)
   : QDialog(_parent, static_cast<Qt::WindowFlags>(Qt::WindowCloseButtonHint))
   , m_ui(new Ui::KeyDialog)
   , m_isTracking(false)
   , m_isExport(false) {
+
   m_ui->setupUi(this);
   setWindowTitle(m_isTracking ? tr("Import a tracking key") : tr("Import a wallet key"));
   m_ui->m_walletLabel->setText(tr("<strong>Wallet Key :</strong>"));
   m_ui->m_fileButton->setText(tr("Load from file"));
   m_ui->m_spendLabel->setVisible(false);
   m_ui->m_viewLabel->setVisible(false);
-  m_ui->m_simpleLabel->setVisible(false);
+  m_ui->m_commentLabel->setVisible(false);
   m_ui->m_spendKey->setVisible(false);
   m_ui->m_viewKey->setVisible(false);
+  m_ui->m_qrButton->setVisible(false);
   if (m_isTracking) {
     m_ui->m_descriptionLabel->setText(tr("Import a tracking key of a wallet to see all its incoming transactions.\n"
       "It doesn't allow spending funds."));
@@ -190,6 +192,11 @@ void KeyDialog::keyChanged() {
   } else {
     m_ui->m_descriptionLabel->clear();
   }
+}
+
+void KeyDialog::qrClicked(){
+    QRCodeDialog* m_qrcode = new QRCodeDialog(QString("Your master wallet key"),m_key.toHex().toUpper(),this);
+    m_qrcode->show();
 }
 
 }
