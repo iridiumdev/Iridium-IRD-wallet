@@ -176,7 +176,6 @@ MainWindow::MainWindow(ICryptoNoteAdapter* _cryptoNoteAdapter, IAddressBookManag
   }
 
   m_ui->m_balanceIconLabel->setPixmap(Settings::instance().getCurrentStyle().getBalanceIcon());
-  m_ui->m_logoLabel->setPixmap(Settings::instance().getCurrentStyle().getLogoPixmap());
   QActionGroup* themeActionGroup = new QActionGroup(this);
   quintptr styleCount = Settings::instance().getStyleCount();
   for (quintptr i = 0; i < styleCount; ++i) {
@@ -483,7 +482,6 @@ void MainWindow::themeChanged() {
   Settings::instance().setCurrentTheme(styleAction->data().toString());
   qApp->setStyleSheet(Settings::instance().getCurrentStyle().makeStyleSheet(m_styleSheetTemplate));
   m_ui->m_balanceIconLabel->setPixmap(Settings::instance().getCurrentStyle().getBalanceIcon());
-  m_ui->m_logoLabel->setPixmap(Settings::instance().getCurrentStyle().getLogoPixmap());
   m_syncMovie->stop();
   m_syncMovie->setFileName(Settings::instance().getCurrentStyle().getWalletSyncGifFile());
   m_syncMovie->start();

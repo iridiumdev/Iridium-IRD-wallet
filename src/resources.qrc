@@ -96,6 +96,7 @@
         <file alias="start-mining">icons/start.png</file>
         <file alias="stop-mining">icons/stop.png</file>
         <file alias="qr-icon">icons/qr-iridium.svg</file>
+        <file alias="irdsvg">icons/iridium.svg</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="splash">images/splash.png</file>
