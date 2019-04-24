@@ -38,7 +38,7 @@ class Miner : public QObject, public IPoolMiner, public IPoolClientObserver {
 
 public:
   Miner(const QString& _host, quint16 _port, quint32 _difficulty, const QString& _login, const QString& _password, QObject* _parent);
-  ~Miner();
+  ~Miner() override;
 
   // IPoolMiner
   virtual void start(quint32 _coreCount) override;

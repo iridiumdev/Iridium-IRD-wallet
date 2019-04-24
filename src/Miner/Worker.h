@@ -30,7 +30,6 @@ class QReadWriteLock;
 
 namespace Crypto {
   struct Hash;
-  class cn_context;
 }
 
 namespace WalletGui {
@@ -43,7 +42,7 @@ public:
   Worker(Job& _mainJob, Job& _alternateJob, QReadWriteLock& _mainJobLock, QReadWriteLock& _alternateJobLock,
     std::atomic<quint32>& _mainNonce, std::atomic<quint32>& _alternateNonce, std::atomic<quint32>& _alternateProbability,
     std::atomic<quint32>& _hashCounter, std::atomic<quint32>& _alternateHashCounter, QObject* _parent);
-  ~Worker();
+  ~Worker() override;
 
   virtual void start() override;
   virtual void stop() override;
@@ -68,8 +67,8 @@ private:
   QMap<IMinerWorkerObserver*, QList<QMetaObject::Connection>> m_alternateObserverConnections;
 
   Q_INVOKABLE void run();
-  void mainJobMiningRound(Job& _localJob, quint32& _localNonce, Crypto::Hash& _hash, Crypto::cn_context& _context);
-  void alternateJobMiningRound(Job& _localJob, quint32& _localNonce, Crypto::Hash& _hash, Crypto::cn_context& _context);
+  void mainJobMiningRound(Job& _localJob, quint32& _localNonce, Crypto::Hash& _hash);
+  void alternateJobMiningRound(Job& _localJob, quint32& _localNonce, Crypto::Hash& _hash);
 
 Q_SIGNALS:
   void shareFoundSignal(const QString& _jobId, quint32 _nonce, const QByteArray& _result);

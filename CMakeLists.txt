@@ -10,8 +10,9 @@ cmake_minimum_required(VERSION 3.1)
 
 #Set build version
 set(VERSION_MAJOR "4")
-set(VERSION_MINOR "0.2")
+set(VERSION_MINOR "1.0")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
+set(CMAKE_CXX_STANDARD 11)
 find_package(Git QUIET)
 if(Git_FOUND OR GIT_FOUND)
     message(STATUS "Found Git: ${GIT_EXECUTABLE}")
@@ -42,6 +43,8 @@ endforeach()
 cmake_policy(SET CMP0058 NEW)
 
 include(CryptoNoteWallet.cmake)
+include(externals/QR-Code-generator.cmake)
+
 
 project(${CN_PROJECT_NAME})
 
@@ -54,6 +57,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
     cryptonote/external/rocksdb/include/
     cryptonote/include
     cryptonote/src
+    externals/QR-Code-generator/cpp/
     )
 
 find_package(Qt5 REQUIRED
@@ -61,6 +65,7 @@ find_package(Qt5 REQUIRED
     Widgets
     Network
     DBus
+    Svg
     )
 
   set(WALLET_RESOURCES src/resources.qrc)
@@ -72,8 +77,6 @@ include_directories(${Qt5DBus_INCLUDE_DIRS} cryptonote/external/rocksdb/include/
 
 set(Boost_USE_STATIC_LIBS ON)
 if(WIN32)
-    set(Boost_USE_STATIC_RUNTIME OFF)
-else(WIN32)
     set(Boost_USE_STATIC_RUNTIME ON)
 endif(WIN32)
 
@@ -133,7 +136,7 @@ file(GLOB_RECURSE CRYPTONOTE_SOURCES
     cryptonote/src/crypto/random.c
     cryptonote/src/crypto/skein.c
     cryptonote/src/crypto/slow-hash.c
-    cryptonote/src/crypto/slow-hash.cpp
+    cryptonote/src/crypto/aesb.c
     cryptonote/src/crypto/tree-hash.c
     cryptonote/src/CryptoNoteCore/*.cpp
     cryptonote/src/CryptoNoteProtocol/*.cpp
@@ -210,6 +213,11 @@ if (WIN32)
     set(BUILD_RESOURCES src/iridiumwallet.rc)
     set(QTMAIN Qt5::WinMain)
 
+   # Force static build mostly for rocksdb
+    foreach(VAR CMAKE_C_FLAGS_DEBUG CMAKE_CXX_FLAGS_DEBUG CMAKE_C_FLAGS_RELWITHDEBINFO CMAKE_CXX_FLAGS_RELWITHDEBINFO CMAKE_C_FLAGS_RELEASE CMAKE_CXX_FLAGS_RELEASE)
+            string(REPLACE "/MD" "/MT" ${VAR} "${${VAR}}")
+    endforeach()
+
 elseif (UNIX)
 
     set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} cryptonote/external/miniupnpc/minissdpc.c)
@@ -224,6 +232,8 @@ elseif (UNIX)
         set(MACOSX_BUNDLE_BUNDLE_NAME IridiumWallet)
         set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${VERSION}")
         set(MACOSX_BUNDLE_BUNDLE_VERSION "${VERSION}")
+#        if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+#        endif()
 
         find_package(Qt5PrintSupport REQUIRED)
         include_directories(/usr/include/malloc)
@@ -255,6 +265,16 @@ elseif (UNIX)
     endif (APPLE)
 endif ()
 
+if(CMAKE_C_COMPILER_ID STREQUAL "GNU" AND NOT (CMAKE_C_COMPILER_VERSION VERSION_LESS 4.8))
+        set(DEBUG_FLAGS "-g3 -Og -gdwarf-4 -fvar-tracking -fvar-tracking-assignments -fno-inline -fno-omit-frame-pointer")
+    else()
+        set(DEBUG_FLAGS "-g3 -O0 -fno-omit-frame-pointer")
+    endif()
+
+    if(CMAKE_C_COMPILER_ID STREQUAL "Clang" OR CMAKE_C_COMPILER_ID STREQUAL "AppleClang")
+        set(DEBUG_FLAGS "${DEBUG_FLAGS} -Wno-delete-non-virtual-dtor")
+    endif()
+
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} ${DEBUG_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${DEBUG_FLAGS}")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} ${RELEASE_FLAGS}")
@@ -271,9 +291,10 @@ target_link_libraries(${CRYPTONOTE_LIB} rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIB
 add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${WALLET_SOURCES} ${WALLET_HEADERS} ${WALLET_FORMS_HEADERS} ${WALLET_RESOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
-target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRYPTONOTE_LIB} ${Qt5DBus_LIBRARIES} ${QRENCODE_LIB})
 
 if (APPLE)
+  set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Platform/OSX/MacOSXBundleInfo.plist.in)
   find_package(Qt5PrintSupport REQUIRED)
   target_link_libraries(${PROJECT_NAME} Qt5::PrintSupport)
 elseif (UNIX)
@@ -282,7 +303,7 @@ elseif (WIN32)
     target_link_libraries(${PROJECT_NAME} rpcrt4.lib wtsapi32.lib  Imm32 Iphlpapi Winmm)
 endif (APPLE)
 
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Gui Qt5::Network)
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Gui Qt5::Network Qt5::Svg)
 
 add_subdirectory(cryptonote/external)
 message(STATUS "--------------------- Iridium Wallet build details ----------------------------")

@@ -249,8 +249,8 @@ void WalletStatusBar::updateStatusDescription() {
     warningString.append(tr(" No network connection."));
   }
 
-  QString statusText = tr("Wallet synchronized. Top block height: %1  /  Time (UTC): %2%3");
-  m_syncStatusLabel->setText(statusText.arg(localBlockCount - 1).
+  QString statusText = tr("Wallet synchronized. Blockchain height : %1 @ %2%3 (UTC)");
+  m_syncStatusLabel->setText(statusText.arg(localBlockCount).
     arg(QLocale(QLocale::English).toString(lastLocalBlockTimestamp, "dd MMM yyyy, HH:mm:ss")).
     arg(warningString));
 }

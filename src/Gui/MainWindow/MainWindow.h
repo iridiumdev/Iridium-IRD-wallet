@@ -122,7 +122,6 @@ private:
   Q_SLOT void saveWalletKeys();
   Q_SLOT void resetWallet();
   Q_SLOT void encryptWallet();
-  Q_SLOT void removePendingTx();
   Q_SLOT void exportKey();
   Q_SLOT void exportTrackingKey();
   Q_SLOT void importKey();
@@ -136,6 +135,7 @@ private:
   Q_SLOT void showPreferences();
   Q_SLOT void communityForumTriggered();
   Q_SLOT void reportIssueTriggered();
+  Q_SLOT void qrClicked();
 
 Q_SIGNALS:
   void reinitCryptoNoteAdapterSignal();

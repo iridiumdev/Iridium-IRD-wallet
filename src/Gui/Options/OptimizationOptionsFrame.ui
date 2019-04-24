@@ -39,6 +39,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QCheckBox" name="m_enableOptimizationCheck">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>Run background wallet optimization</string>
        </property>
@@ -106,7 +109,7 @@
       <item alignment="Qt::AlignTop">
        <widget class="QWidget" name="widget1" native="true">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <layout class="QGridLayout" name="gridLayout" columnstretch="50,0,0,0">
          <property name="leftMargin">
@@ -126,6 +129,9 @@
          </property>
          <item row="0" column="0" colspan="4">
           <widget class="WalletGui::WalletNormalBlackTextLabel" name="label_5">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="text">
             <string>Optimization target</string>
            </property>
@@ -194,6 +200,12 @@
            <property name="buttonSymbols">
             <enum>QAbstractSpinBox::UpDownArrows</enum>
            </property>
+           <property name="minimum">
+            <number>2</number>
+           </property>
+           <property name="maximum">
+            <number>10</number>
+           </property>
           </widget>
          </item>
          <item row="7" column="0" colspan="4">
@@ -208,6 +220,12 @@
          </item>
          <item row="8" column="0" colspan="3">
           <widget class="QSlider" name="m_mixinSlider">
+           <property name="minimum">
+            <number>2</number>
+           </property>
+           <property name="maximum">
+            <number>10</number>
+           </property>
            <property name="pageStep">
             <number>1</number>
            </property>
@@ -267,7 +285,7 @@
         <item>
          <widget class="QWidget" name="widget2" native="true">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0">
            <property name="leftMargin">
@@ -469,6 +487,9 @@
    </item>
    <item>
     <widget class="WalletGui::WalletExtraNormalGrayTextLabel" name="m_helpLabel">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="text">
       <string>Wallet optimization is a background task performed in order to aggregate transactions outputs that are below optimization target into bigger ones. It makes it cheaper to send larger amounts of iridium within one transaction.
 Wallet optimization is free for all users but takes some time.</string>

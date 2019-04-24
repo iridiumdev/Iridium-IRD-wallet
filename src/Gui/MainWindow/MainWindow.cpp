@@ -38,6 +38,7 @@
 #include "Gui/Common/NewPasswordDialog.h"
 #include "Gui/Common/KeyDialog.h"
 #include "Gui/Common/QuestionDialog.h"
+#include "Gui/Common/QRCodeDialog.h"
 #include "ICryptoNoteAdapter.h"
 #include "INodeAdapter.h"
 #include "Models/AddressBookModel.h"
@@ -175,7 +176,6 @@ MainWindow::MainWindow(ICryptoNoteAdapter* _cryptoNoteAdapter, IAddressBookManag
   }
 
   m_ui->m_balanceIconLabel->setPixmap(Settings::instance().getCurrentStyle().getBalanceIcon());
-  m_ui->m_logoLabel->setPixmap(Settings::instance().getCurrentStyle().getLogoPixmap());
   QActionGroup* themeActionGroup = new QActionGroup(this);
   quintptr styleCount = Settings::instance().getStyleCount();
   for (quintptr i = 0; i < styleCount; ++i) {
@@ -259,16 +259,12 @@ void MainWindow::synchronizationProgressUpdated(quint32 _current, quint32 _total
     return;
   }
 
-  if (m_ui->m_removePendingTxAction->isEnabled())
-	  m_ui->m_removePendingTxAction->setEnabled(false);
-
   qreal value = static_cast<qreal>(_current) / _total;
   m_ui->m_syncProgress->setValue(value * m_ui->m_syncProgress->maximum());
 }
 
 void MainWindow::synchronizationCompleted() {
   m_ui->m_syncProgress->setValue(m_ui->m_syncProgress->maximum());
-  m_ui->m_removePendingTxAction->setEnabled(true);
 }
 
 void MainWindow::balanceUpdated(quint64 _actualBalance, quint64 _pendingBalance) {
@@ -387,8 +383,6 @@ void MainWindow::setClosedState() {
   m_ui->m_exportTrackingKeyAction->setEnabled(false);
   m_ui->m_encryptWalletAction->setEnabled(false);
   m_ui->m_changePasswordAction->setEnabled(false);
-  m_ui->m_removePendingTxAction->setEnabled(false);
-
   m_ui->m_overviewFrame->hide();
   m_ui->m_sendFrame->hide();
   m_ui->m_transactionsFrame->hide();
@@ -488,7 +482,6 @@ void MainWindow::themeChanged() {
   Settings::instance().setCurrentTheme(styleAction->data().toString());
   qApp->setStyleSheet(Settings::instance().getCurrentStyle().makeStyleSheet(m_styleSheetTemplate));
   m_ui->m_balanceIconLabel->setPixmap(Settings::instance().getCurrentStyle().getBalanceIcon());
-  m_ui->m_logoLabel->setPixmap(Settings::instance().getCurrentStyle().getLogoPixmap());
   m_syncMovie->stop();
   m_syncMovie->setFileName(Settings::instance().getCurrentStyle().getWalletSyncGifFile());
   m_syncMovie->start();
@@ -646,14 +639,6 @@ void MainWindow::resetWallet() {
   m_ui->m_noWalletFrame->openWallet(Settings::instance().getWalletFile(), QString());
 }
 
-void MainWindow::removePendingTx() {
-	IWalletAdapter* walletAdapter = m_cryptoNoteAdapter->getNodeAdapter()->getWalletAdapter();
-	if (walletAdapter->resetPendingTransactions())
-		QMessageBox::information(this, "Transactions reset", "Transactions reset successfully.", QMessageBox::Ok);
-	else
-		QMessageBox::warning(this, "Transaction reset failed", "Failed to reset transactions. Check debug log.", QMessageBox::Ok);
-}
-
 void MainWindow::encryptWallet() {
   IWalletAdapter* walletAdapter = m_cryptoNoteAdapter->getNodeAdapter()->getWalletAdapter();
   if (walletAdapter->isEncrypted()) {
@@ -802,7 +787,12 @@ void MainWindow::communityForumTriggered() {
 }
 
 void MainWindow::reportIssueTriggered() {
-  QDesktopServices::openUrl(QUrl::fromUserInput(REPORT_ISSUE_URL));
+    QDesktopServices::openUrl(QUrl::fromUserInput(REPORT_ISSUE_URL));
+}
+
+void MainWindow::qrClicked(){
+    QRCodeDialog* m_qrcode = new QRCodeDialog(QString("Your Iridium address"),m_ui->m_addressLabel->text().toLocal8Bit(),this);
+    m_qrcode->show();
 }
 
 }

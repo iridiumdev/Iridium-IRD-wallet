@@ -84,7 +84,7 @@
       <item alignment="Qt::AlignTop">
        <widget class="WalletGui::WalletSmallGrayTextLabel" name="m_embeddedHelperLabel">
         <property name="text">
-         <string>Checking this box will result in updated Overview screen. It will now show you the latest posts of Bytecoin Blog providing you with fresh Bytecoin news.</string>
+         <string>Checking this box will result in updated Overview screen. It will now show you the latest posts of Iridium Blog providing you with fresh Iridium news.</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
