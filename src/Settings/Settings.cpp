@@ -68,7 +68,7 @@ const char OPTION_PRIVACY_NEWS_ENABLED[] = "newsEnabled";
 const char DEFAULT_WALLET_FILE_NAME[] = "iridiumwallet.wallet";
 const quint64 DEFAULT_OPTIMIZATION_PERIOD = 1000 * 60 * 30; // 30 minutes
 const quint64 DEFAULT_OPTIMIZATION_THRESHOLD = 10000000000000;
-const quint64 DEFAULT_OPTIMIZATION_MIXIN = 6;
+const quint64 DEFAULT_OPTIMIZATION_MIXIN = 2;
 
 }
 
@@ -110,10 +110,6 @@ void Settings::init() {
   if (cfgFile.open(QIODevice::ReadOnly)) {
     m_settings = QJsonDocument::fromJson(cfgFile.readAll()).object();
     cfgFile.close();
-  }
-
-  if (isOptimizationEnabled()) {
-	  setOptimizationEnabled(false);
   }
 
   restoreDefaultPoolList();
