@@ -9,10 +9,16 @@
 cmake_minimum_required(VERSION 3.1)
 
 #Set build version
-set(VERSION_MAJOR "4")
-set(VERSION_MINOR "2.0")
+set(VERSION_MAJOR "5")
+set(VERSION_MINOR "0.0")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
 set(CMAKE_CXX_STANDARD 11)
+set(ARCH native CACHE STRING "CPU to build for: -march value or default")
+if("${ARCH}" STREQUAL "default")
+    set(ARCH_FLAG "default")
+else()
+    set(ARCH_FLAG "-march=${ARCH}")
+endif()
 find_package(Git QUIET)
 if(Git_FOUND OR GIT_FOUND)
     message(STATUS "Found Git: ${GIT_EXECUTABLE}")
@@ -48,17 +54,8 @@ include(externals/QR-Code-generator.cmake)
 
 project(${CN_PROJECT_NAME})
 
-set(CRYPTONOTE_LIB cryptoNote)
+set(CRYPTONOTE_LIB cryptonote)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR}
-    src
-    include
-    cryptonote/external
-    cryptonote/external/rocksdb/include/
-    cryptonote/include
-    cryptonote/src
-    externals/QR-Code-generator/cpp/
-    )
 
 find_package(Qt5 REQUIRED
     Gui
@@ -68,12 +65,24 @@ find_package(Qt5 REQUIRED
     Svg
     )
 
+include_directories(
+    ${CMAKE_CURRENT_BINARY_DIR}
+    src
+    include
+    cryptonote/external
+    cryptonote/external/rocksdb/include/
+    cryptonote/include
+    cryptonote/src
+    externals/QR-Code-generator/cpp/
+    ${Qt5DBus_INCLUDE_DIRS}
+    )
+
   set(WALLET_RESOURCES src/resources.qrc)
   set(CMAKE_AUTOMOC ON)
   set(CMAKE_AUTOUIC ON)
   set(CMAKE_AUTORCC ON)
 
-include_directories(${Qt5DBus_INCLUDE_DIRS} cryptonote/external/rocksdb/include/ include src external "${CMAKE_CURRENT_BINARY_DIR}/version")
+#include_directories( "${CMAKE_CURRENT_BINARY_DIR}/version")
 
 set(Boost_USE_STATIC_LIBS ON)
 if(WIN32)
@@ -91,16 +100,7 @@ link_directories(${Boost_LIBRARY_DIRS})
 add_definitions(-DGIT_REVISION="${GIT_REVISION}")
 
 file(GLOB_RECURSE CRYPTONOTE_SOURCES
-    cryptonote/external/miniupnpc/connecthostport.c
-    cryptonote/external/miniupnpc/igd_desc_parse.c
-    cryptonote/external/miniupnpc/minisoap.c
-    cryptonote/external/miniupnpc/miniupnpc.c
-    cryptonote/external/miniupnpc/miniwget.c
-    cryptonote/external/miniupnpc/minixml.c
-    cryptonote/external/miniupnpc/portlistingparse.c
-    cryptonote/external/miniupnpc/receivedata.c
-    cryptonote/external/miniupnpc/upnpcommands.c
-    cryptonote/external/miniupnpc/upnpreplyparse.c
+    cryptonote/external/miniupnpc/
     cryptonote/src/BlockchainExplorer/BlockchainExplorer.cpp
     cryptonote/src/BlockchainExplorer/BlockchainExplorerErrors.cpp
     cryptonote/src/Common/Base58.cpp
@@ -120,7 +120,7 @@ file(GLOB_RECURSE CRYPTONOTE_SOURCES
     cryptonote/src/Common/ScopeExit.cpp
     cryptonote/src/ConnectivityTool/ConnectivityTool.cpp
     cryptonote/src/crypto/blake256.c
-    cryptonote/src/crypto/chacha8.c
+    cryptonote/src/crypto/chacha8.cpp
     cryptonote/src/crypto/crypto-ops-data.c
     cryptonote/src/crypto/crypto-ops.c
     cryptonote/src/crypto/crypto.cpp
@@ -286,7 +286,7 @@ set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} ${PLATFORM_SOURCES} ${CRYPTONOTE_PL
 
 add_library(${CRYPTONOTE_LIB} STATIC ${CRYPTONOTE_SOURCES})
 set_target_properties(${CRYPTONOTE_LIB} PROPERTIES COMPILE_DEFINITIONS _GNU_SOURCE)
-target_link_libraries(${CRYPTONOTE_LIB} rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIBRARIES})
+target_link_libraries(${CRYPTONOTE_LIB} upnpc-static rocksdb ${Boost_LIBRARIES} ${Qt5DBus_LIBRARIES})
 
 add_executable(${PROJECT_NAME} ${BUILD_PLATFORM} ${BUILD_RESOURCES} ${WALLET_SOURCES} ${WALLET_HEADERS} ${WALLET_FORMS_HEADERS} ${WALLET_RESOURCES})
 
