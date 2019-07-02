@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>QR Code</string>
   </property>
   <widget class="WalletGui::WalletOkButton" name="okButton">
    <property name="geometry">

@@ -1,7 +1,7 @@
 #include "QRCodeDialog.h"
 #include "QrCode.hpp"
 #include <QSvgWidget>
-#include "ui_QRCodeDialog.h"
+#include "ui_qrcodedialog.h"
 
 #include <iostream>
 

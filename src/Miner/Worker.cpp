@@ -30,8 +30,8 @@ namespace  {
     std::memset(&_hash, 0, sizeof(_hash));
     //cn_slow_hash_V0 original pow
     //cn_lite_slow_hash_v1 v4 pow
-    //cn_slow_hash_v2 v5 pow, not in use
-    Crypto::cn_lite_slow_hash_v1(_localJob.blob.data(), _localJob.blob.size(), _hash);
+    //cn_pico_slow_hash_v2 v5 pow
+    Crypto::cn_pico_slow_hash_v2(_localJob.blob.data(), _localJob.blob.size(), _hash);
   }
 }
 
