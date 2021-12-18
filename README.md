@@ -53,7 +53,7 @@ $ make
   ```
   * Cmake complain not finding Qt libs : specify your Qt installation path :
   ```
-    -DBOOST_ROOT="Your_Qt_root_path"
+    -DCMAKE_PREFIX_PATH="Your_Qt_root_path"
   ```
   * Your Processor is quiet old and doesn't support aes or avx :
   ```

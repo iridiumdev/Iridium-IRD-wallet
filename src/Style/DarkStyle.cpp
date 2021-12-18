@@ -52,7 +52,7 @@ QString DarkStyle::toolButtonBackgroundColorNormal() const {
 }
 
 QString DarkStyle::toolButtonBackgroundColorHover() const {
-  return "#1f1c33";
+  return "#4dec6d00";
 }
 
 QString DarkStyle::toolButtonBackgroundColorPressed() const {

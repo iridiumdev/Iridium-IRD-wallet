@@ -60,8 +60,8 @@ private:
   Q_SLOT void donationChangeAmountChanged(double _value);
 
 Q_SIGNALS:
-  virtual void showRestartWarningSignal(bool _show) override;
-  virtual void disableAcceptButtonSignal(bool _disable) override;
+   void showRestartWarningSignal(bool _show) override;
+   void disableAcceptButtonSignal(bool _disable) override;
 };
 
 }

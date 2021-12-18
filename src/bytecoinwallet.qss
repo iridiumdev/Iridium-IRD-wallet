@@ -236,15 +236,15 @@ QCalendarWidget QMenu {
 #MainWindow > #centralwidget > #m_toolFrame > QPushButton {
   min-height: 41px;
   max-height: 41px;
-  background-color: transparent;
   border: none;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
   color: %toolButtonFontColorNormal%;
   font-size: %fontSizeSmall%;
   border-radius: 0px;
-  image-position: top;
-  text-align: bottom;
+  margin: 0px;
+  padding: 10px;
+  background-position: left center;
+  background-origin: content;
+  background-repeat: no-repeat;
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > QPushButton:disabled {
@@ -265,117 +265,117 @@ QCalendarWidget QMenu {
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_overviewButton {
-  image: url(:icons/%currentTheme%/overview);
+  background-image: url(:icons/%currentTheme%/overview);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_transactionsButton {
-  image: url(:icons/%currentTheme%/transactions);
+  background-image: url(:icons/%currentTheme%/transactions);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_blockExplorerButton {
-  image: url(:icons/%currentTheme%/block_explorer);
+  background-image: url(:icons/%currentTheme%/block_explorer);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_addressBookButton {
-  image: url(:icons/%currentTheme%/address_book);
+  background-image: url(:icons/%currentTheme%/address_book);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_miningButton {
-  image: url(:icons/%currentTheme%/miner);
+  background-image: url(:icons/%currentTheme%/miner);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_sendButton {
-  image: url(:icons/%currentTheme%/send);
+  background-image: url(:icons/%currentTheme%/send);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_overviewButton:checked {
   color: #ffffff;
-  image: url(:icons/dark/overview);
+  background-image: url(:icons/dark/overview);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_transactionsButton:checked {
   color: #ffffff;
-  image: url(:icons/dark/transactions);
+  background-image: url(:icons/dark/transactions);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_blockExplorerButton:checked {
   color: #ffffff;
-  image: url(:icons/dark/block_explorer);
+  background-image: url(:icons/dark/block_explorer);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_addressBookButton:checked {
   color: #ffffff;
-  image: url(:icons/dark/address_book);
+  background-image: url(:icons/dark/address_book);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_miningButton:checked {
   color: #ffffff;
-  image: url(:icons/dark/miner);
+  background-image: url(:icons/dark/miner);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_sendButton:checked {
   color: #ffffff;
-  image: url(:icons/dark/send);
+  background-image: url(:icons/dark/send);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_overviewButton:disabled {
-  image: url(:icons/overview_disabled);
+  background-image: url(:icons/overview_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_transactionsButton:disabled {
-  image: url(:icons/transactions_disabled);
+  background-image: url(:icons/transactions_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_blockExplorerButton:disabled {
-  image: url(:icons/block_explorer_disabled);
+  background-image: url(:icons/block_explorer_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_addressBookButton:disabled {
-  image: url(:icons/address_book_disabled);
+  background-image: url(:icons/address_book_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_miningButton:disabled {
-  image: url(:icons/miner_disabled);
+  background-image: url(:icons/miner_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_sendButton:disabled {
-  image: url(:icons/send_disabled);
+  background-image: url(:icons/send_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_overviewButton:checked:disabled {
   background-color: transparent;
   color: %toolButtonFontColorDisabled%;
-  image: url(:icons/overview_disabled);
+  background-image: url(:icons/overview_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_transactionsButton:checked:disabled {
   background-color: transparent;
   color: %toolButtonFontColorDisabled%;
-  image: url(:icons/transactions_disabled);
+  background-image: url(:icons/transactions_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_blockExplorerButton:checked:disabled {
   background-color: transparent;
   color: %toolButtonFontColorDisabled%;
-  image: url(:icons/block_explorer_disabled);
+  background-image: url(:icons/block_explorer_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_addressBookButton:checked:disabled {
   background-color: transparent;
   color: %toolButtonFontColorDisabled%;
-  image: url(:icons/address_book_disabled);
+  background-image: url(:icons/address_book_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_miningButton:checked:disabled {
   background-color: transparent;
   color: %toolButtonFontColorDisabled%;
-  image: url(:icons/miner_disabled);
+  background-image: url(:icons/miner_disabled);
 }
 
 #MainWindow > #centralwidget > #m_toolFrame > #m_sendButton:checked:disabled {
   background-color: transparent;
   color: %toolButtonFontColorDisabled%;
-  image: url(:icons/send_disabled);
+  background-image: url(:icons/send_disabled);
 }
 
 
