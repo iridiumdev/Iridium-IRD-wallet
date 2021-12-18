@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>390</height>
+    <width>680</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
-    <height>390</height>
+    <width>680</width>
+    <height>480</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>600</width>
-    <height>390</height>
+    <width>680</width>
+    <height>480</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -41,7 +41,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Iridium version %1-%2&lt;/p&gt;&lt;p&gt;Iridium is the next generation anonymous cryptocurrency based on CryptoNote.&lt;br/&gt;Copyright © 2012-%3 The Iridium developers&lt;br/&gt;This is free software. &lt;/p&gt;&lt;p&gt;Website : &lt;a href=&quot;https://ird.cash&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://ird.cash&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Facebook : &lt;a href=&quot;https://www.facebook.com/IridiumCoin&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://www.facebook.com/IridiumCoin&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Twitter : &lt;a href=&quot;https://twitter.com/iridium_project&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://twitter.com/iridium_project&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Discord : &lt;a href=&quot;https://discord.gg/xU85tpS&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://discord.gg/xU85tpS&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Telegram announcments : &lt;a href=&quot;https://t.me/joinchat/AAAAAFFYZHXzOQkDvsP0gQ&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://t.me/joinchat/AAAAAFFYZHXzOQkDvsP0gQ&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Telegram public chat : &lt;a href=&quot;https://t.me/joinchat/GizWw0sK9LW8DAu4hAeWnA&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://t.me/joinchat/GizWw0sK9LW8DAu4hAeWnA&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Reddit : &lt;a href=&quot;https://www.reddit.com/r/Iridium_IRD&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://www.reddit.com/r/Iridium_IRD&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;BTT : &lt;a href=&quot;https://bitcointalk.org/index.php?topic=2150442.0;all&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://bitcointalk.org/index.php?topic=2150442.0;all&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Distributed under the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details: &lt;/span&gt;&lt;a href=&quot;https://www.gnu.org/licenses/lgpl.html&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#007af4;&quot;&gt;https://www.gnu.org/licenses/lgpl.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:x-large; font-weight:700;&quot;&gt;Iridium (IRD) : The Community Cryptocurrency&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:15px;&quot;&gt;An anonymous, privacy-friendly, fairly-mined cryptocurrency with low-supply,high-availability, best-in-class security and an enthusiastic community.&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Official Website : &lt;a href=&quot;https://ird.cash&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://www.ird.cash&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;Discord : &lt;a href=&quot;https://discord.gg/xU85tpS&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://discord.gg/xU85tpS&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;Telegram announcements : &lt;a href=&quot;https://t.me/joinchat/AAAAAFFYZHXzOQkDvsP0gQ&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://t.me/joinchat/AAAAAFFYZHXzOQkDvsP0gQ&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Telegram Public Chat : &lt;a href=&quot;https://t.me/joinchat/GizWw0sK9LW8DAu4hAeWnA&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://t.me/joinchat/GizWw0sK9LW8DAu4hAeWnA&lt;/span&gt;&lt;/a&gt;&lt;a href=&quot;https://discord.gg/xU85tpS&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;Twitter : &lt;a href=&quot;https://twitter.com/iridium_project&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://twitter.com/IridiumCash&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Facebook : &lt;a href=&quot;https://www.facebook.com/IridiumCash&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://www.facebook.com/IridiumCash&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;Reddit : &lt;a href=&quot;https://www.reddit.com/r/Iridium_IRD&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://www.reddit.com/r/&lt;/span&gt;&lt;/a&gt;&lt;a href=&quot;https://twitter.com/iridium_project&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;IridiumCash&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;BitcoinTalk : &lt;a href=&quot;https://bitcointalk.org/index.php?topic=2150442.0;all&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://bitcointalk.org/index.php?topic=2150442.0;all&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Distributed under the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version. Distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details: &lt;/span&gt;&lt;a href=&quot;https://www.gnu.org/licenses/lgpl.html&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#007af4;&quot;&gt;https://www.gnu.org/licenses/lgpl.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;version %1-%2 - Copyright © 2012-%3 The Iridium developers&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>

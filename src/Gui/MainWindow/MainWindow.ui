@@ -872,7 +872,7 @@
      <x>0</x>
      <y>0</y>
      <width>1260</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -958,7 +958,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Encrypt wallet</string>
+    <string>Password protection</string>
    </property>
   </action>
   <action name="m_changePasswordAction">
@@ -993,7 +993,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Backup wallet</string>
+    <string>Save wallet file as...</string>
    </property>
   </action>
   <action name="m_autostartAction">
@@ -1032,15 +1032,15 @@
   </action>
   <action name="m_exportTrackingKeyAction">
    <property name="text">
-    <string>Export tracking key</string>
+    <string>Export View-Only wallet key...</string>
    </property>
    <property name="toolTip">
-    <string>Export tracking key</string>
+    <string>Export View-Only wallet key...</string>
    </property>
   </action>
   <action name="m_importKeyAction">
    <property name="text">
-    <string>Import key</string>
+    <string>Import your wallet key</string>
    </property>
    <property name="toolTip">
     <string>Import key</string>
@@ -1063,12 +1063,15 @@
   </action>
   <action name="m_saveKeysAction">
    <property name="text">
-    <string>Save wallet keys</string>
+    <string>Save wallet key as file...</string>
+   </property>
+   <property name="toolTip">
+    <string>Save wallet key as file</string>
    </property>
   </action>
   <action name="m_exportKeyAction">
    <property name="text">
-    <string>Export key</string>
+    <string>Export wallet key</string>
    </property>
    <property name="toolTip">
     <string>Export key</string>

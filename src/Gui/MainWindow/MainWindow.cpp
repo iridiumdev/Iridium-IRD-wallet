@@ -62,7 +62,7 @@ namespace {
 
 const int MAX_RECENT_WALLET_COUNT = 10;
 const char COMMUNITY_FORUM_URL[] = "https://discord.gg/xU85tpS";
-const char REPORT_ISSUE_URL[] = "https://github.com/iridiumdev/iridium-wallet/issues";
+const char REPORT_ISSUE_URL[] = "https://github.com/iridiumdev/Iridium-IRD-wallet/issues";
 
 const char DONATION_URL_DONATION_TAG[] = "donation";
 const char DONATION_URL_LABEL_TAG[] = "label";
@@ -368,7 +368,7 @@ void MainWindow::setOpenedState() {
   m_ui->m_overviewFrame->show();
 
   m_ui->m_overviewButton->setChecked(true);
-  m_ui->m_blockExplorerButton->setEnabled(m_cryptoNoteAdapter->getNodeAdapter()->getBlockChainExplorerAdapter() != nullptr);
+  m_ui->m_blockExplorerButton->setVisible(m_cryptoNoteAdapter->getNodeAdapter()->getBlockChainExplorerAdapter() != nullptr);
 }
 
 void MainWindow::setClosedState() {

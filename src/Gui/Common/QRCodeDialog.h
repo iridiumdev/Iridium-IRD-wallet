@@ -1,8 +1,7 @@
-
 #pragma once
 
 #include <QDialog>
-#include "QrCode.hpp"
+#include "qrcodegen.hpp"
 
 namespace Ui {
 class QRCodeDialog;
@@ -24,6 +23,7 @@ private:
     QScopedPointer<Ui::QRCodeDialog> m_ui;
     std::string m_svg;
     Q_SLOT void qrClicked();
+    std::string toSvgString(qrcodegen::QrCode qr0) const;
 };
 
 }

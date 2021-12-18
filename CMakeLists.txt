@@ -1,18 +1,30 @@
 #  Iridium wallet Graphical User Interface
 #  Based on Bytecoin wallet
 #
-#  First updtate submodules
+#  First update submodules :
 #  git submodule update --init --recursive
 #  git submodule foreach git pull origin master
 #
 
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5)
+
+message(STATUS "------- Starting configuration ---------")
 
 #Set build version
 set(VERSION_MAJOR "5")
-set(VERSION_MINOR "0.0")
+set(VERSION_MINOR "0.1")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
-set(CMAKE_CXX_STANDARD 11)
+
+# Enabling C++14
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Output directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
 set(ARCH native CACHE STRING "CPU to build for: -march value or default")
 if("${ARCH}" STREQUAL "default")
     set(ARCH_FLAG "default")
@@ -56,7 +68,6 @@ project(${CN_PROJECT_NAME})
 
 set(CRYPTONOTE_LIB cryptonote)
 
-
 find_package(Qt5 REQUIRED
     Gui
     Widgets
@@ -89,7 +100,7 @@ if(WIN32)
     set(Boost_USE_STATIC_RUNTIME ON)
 endif(WIN32)
 
-find_package(Boost 1.58 REQUIRED COMPONENTS date_time filesystem program_options regex serialization system thread chrono)
+find_package(Boost 1.68 REQUIRED COMPONENTS date_time filesystem program_options regex serialization system thread chrono)
 if ((${Boost_MAJOR_VERSION} EQUAL 1) AND (${Boost_MINOR_VERSION} EQUAL 54))
     message(SEND_ERROR "Boost version 1.58 is unsupported, more details are available here http://goo.gl/RrCFmA")
 endif ()
@@ -118,7 +129,7 @@ file(GLOB_RECURSE CRYPTONOTE_SOURCES
     cryptonote/src/Common/StringView.cpp
     cryptonote/src/Common/VectorOutputStream.cpp
     cryptonote/src/Common/ScopeExit.cpp
-    cryptonote/src/ConnectivityTool/ConnectivityTool.cpp
+    #cryptonote/src/ConnectivityTool/ConnectivityTool.cpp
     cryptonote/src/crypto/blake256.c
     cryptonote/src/crypto/chacha8.cpp
     cryptonote/src/crypto/crypto-ops-data.c
@@ -197,7 +208,7 @@ else()
 endif()
 
 #qt5_wrap_cpp(WALLET_HEADERS_MOC ${WALLET_HEADERS})
-qt5_wrap_ui(WALLET_FORMS_HEADERS ${WALLET_FORMS})
+qt_wrap_ui(WALLET_FORMS_HEADERS ${WALLET_FORMS})
 #qt5_add_resources(WALLET_RESOURCES_RCC ${WALLET_RESOURCES})
 
 if (WIN32)
@@ -235,11 +246,11 @@ elseif (UNIX)
 #        if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
 #        endif()
 
-        find_package(Qt5PrintSupport REQUIRED)
+        find_package(Qt5 COMPONENTS PrintSupport REQUIRED)
         include_directories(/usr/include/malloc)
 
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes -std=c++11 -stdlib=libc++")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -maes -D_DARWIN_C_SOURCE")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -maes -std=c17 -D_DARWIN_C_SOURCE")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Cocoa -framework OpenGL -framework CoreFoundation -framework Carbon -framework IOKit -L/usr/lib")
 
         set(MACOSX_BUNDLE_ICON_FILE iridium.icns)
@@ -260,8 +271,8 @@ elseif (UNIX)
         set(RELEASE_FLAGS "-Wno-uninitialized -Wno-deprecated-declarations")
     else(APPLE)
         set(PLATFORM_DIR Linux)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes -std=c++11")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -maes -std=c11")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -maes -std=c17")
     endif (APPLE)
 endif ()
 
@@ -295,7 +306,7 @@ target_link_libraries(${PROJECT_NAME} rocksdb ${Boost_LIBRARIES} ${QTMAIN} ${CRY
 
 if (APPLE)
   set_target_properties(${PROJECT_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Platform/OSX/MacOSXBundleInfo.plist.in)
-  find_package(Qt5PrintSupport REQUIRED)
+  find_package(Qt5 COMPONENTS PrintSupport REQUIRED)
   target_link_libraries(${PROJECT_NAME} Qt5::PrintSupport)
 elseif (UNIX)
     target_link_libraries(${PROJECT_NAME} -lpthread)
@@ -314,6 +325,8 @@ message(STATUS "Version : ${VERSION}")
 message(STATUS "Revision : ${GIT_REVISION}")
 message(STATUS "Portable : ${PORTABLE}" )
 message(STATUS "----------------------------------------------------------")
+message(STATUS "C Flags ${CMAKE_C_FLAGS_RELEASE}")
+message(STATUS "CXX Flags ${CMAKE_CXX_FLAGS_RELEASE}")
 configure_file("cryptonote/src/version.h.in" "version.h")
 configure_file("cryptonote/src/version.h.in" ${CMAKE_SOURCE_DIR}/src/version.h)
 configure_file("src/CryptoNoteWalletConfig.h.in" "CryptoNoteWalletConfig.h")
