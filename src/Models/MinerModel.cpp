@@ -147,10 +147,10 @@ QVariant MinerModel::headerData(int _section, Qt::Orientation _orientation, int 
   case Qt::TextAlignmentRole: {
     switch(_section) {
     case COLUMN_POOL_URL:
-      return static_cast<int>(Qt::AlignLeft | Qt::AlignVCenter);
+      return static_cast<int>(Qt::AlignHCenter | Qt::AlignVCenter);
     }
 
-    return static_cast<int>(Qt::AlignRight | Qt::AlignVCenter);
+    return static_cast<int>(Qt::AlignHCenter | Qt::AlignVCenter);
   }
 
   default:
